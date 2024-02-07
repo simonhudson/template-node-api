@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 export type ApiRequestParams = {
 	req: Request;
-	res: Response;
 	collectionName: string;
 	query?: {};
 	sortBy?: string;

@@ -37,13 +37,18 @@ router.post('/', async (req: Request, res: Response) => {
 			)
 		);
 	} else {
-		requestBody.created_at = new Date();
 		requestBody.slug = slugify(`${requestBody.first_name} ${requestBody.last_name}`);
 		requestBody.age = dayjs().diff(dayjs(requestBody.date_of_birth), 'year');
 		makeRequest({ req, res, collectionName: COLLECTION_NAME });
 	}
 });
-// router.patch('/', async (req: Request, res: Response) => makeRequest({ req, res, collectionName: COLLECTION_NAME }));
+router.patch('/', async (req: Request, res: Response) => {
+	const requestBody = req.body;
+
+	requestBody.slug = slugify(`${requestBody.first_name} ${requestBody.last_name}`);
+	requestBody.age = dayjs().diff(dayjs(requestBody.date_of_birth), 'year');
+	makeRequest({ req, res, collectionName: COLLECTION_NAME });
+});
 // router.delete('/', async (req: Request, res: Response) => makeRequest({ req, res, collectionName: COLLECTION_NAME }));
 
 // router.get('/captain', async (req: Request, res: Response) =>
