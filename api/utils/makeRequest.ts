@@ -1,10 +1,10 @@
-import mongoClient from '@/api/utils/mongoClient';
-import { MongoClient } from 'mongodb';
 import { handleResponse } from '@/api/utils/handleResponse';
-import { httpStatusCodes } from '../constants/httpStatusCodes';
+import { MongoClient } from 'mongodb';
+import { Request, Response } from 'express';
+import mongoClient from '@/api/utils/mongoClient';
 
 import { get } from '@/api/methods/get';
-// import { post } from './post';
+import { post } from '@/api/methods/post';
 // import { patch } from './patch';
 // import { del } from './delete';
 
@@ -14,15 +14,16 @@ export const makeRequest = async ({ req, res, collectionName, query, sortBy, sor
 	const METHOD = req?.method?.toLowerCase();
 	const client: MongoClient = mongoClient;
 	const db = client.db(process.env.DB_NAME);
-	let response = { error: { status: httpStatusCodes.BAD_REQUEST, message: 'Invalid request' } };
+
+	let response;
 
 	switch (METHOD) {
 		case 'get':
-			response = await get({ db, collectionName, query, sortBy, sortDirection });
+			response = await get({ req, res, db, collectionName, query, sortBy, sortDirection });
 			break;
-		// case 'post':
-		// 	await post({ req, res, collectionName, db });
-		// 	break;
+		case 'post':
+			response = await post({ req, res, collectionName, db });
+			break;
 		// case 'patch':
 		// 	await patch({ req, res, db, collectionName });
 		// 	break;
@@ -30,5 +31,5 @@ export const makeRequest = async ({ req, res, collectionName, query, sortBy, sor
 		// 	await del({ req, res, db, collectionName });
 		// 	break;
 	}
-	handleResponse(response, res);
+	handleResponse(req, res, response);
 };

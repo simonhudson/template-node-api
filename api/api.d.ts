@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
 export type ApiRequestParams = {
-	req?: Request;
-	res?: Response;
+	req: Request;
+	res: Response;
 	collectionName: string;
 	query?: {};
 	sortBy?: string;
@@ -10,6 +10,5 @@ export type ApiRequestParams = {
 };
 
 export type ApiErrorResponse = {
-	status?: number;
-	message: string;
+	error: any;
 };

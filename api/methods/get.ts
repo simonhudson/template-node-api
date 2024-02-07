@@ -1,12 +1,12 @@
+import { createError } from '@/api/utils/createError';
 import { Db } from 'mongodb';
-import { createErrorResponse } from '@/api/utils/createErrorResponse';
-import type { ApiRequestParams } from '@/api/api';
 
+import type { ApiRequestParams } from '@/api/api';
 interface ApiGetParams extends ApiRequestParams {
 	db: Db;
 }
 
-export const get = async ({ collectionName, db, query, sortBy, sortDirection }: ApiGetParams) => {
+export const get = async ({ req, res, collectionName, db, query, sortBy, sortDirection }: ApiGetParams) => {
 	let queryObj = query || {};
 	let sortQuery = {};
 	if (sortBy) sortQuery = { [sortBy]: sortDirection === 'asc' ? 1 : -1 };
@@ -15,6 +15,6 @@ export const get = async ({ collectionName, db, query, sortBy, sortDirection }: 
 		const response = await db.collection(collectionName).find(queryObj).sort(sortQuery).toArray();
 		return response;
 	} catch (error: unknown) {
-		createErrorResponse({ message: JSON.stringify(error) });
+		return createError(error);
 	}
 };
