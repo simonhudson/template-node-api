@@ -22,8 +22,8 @@ export const post = async ({ req, res, collectionName, db }: PostParams) => {
 		const response = await db
 			.collection(collectionName)
 			.insertOne(sanitizePayload(finalPayload) as OptionalId<Document>);
-		handleResponse(req, res, response);
+		return response;
 	} catch (error: unknown) {
-		createError({ error });
+		return createError({ error });
 	}
 };

@@ -1,6 +1,5 @@
 import { handleResponse } from '@/api/utils/handleResponse';
 import { MongoClient } from 'mongodb';
-import { Request, Response } from 'express';
 import mongoClient from '@/api/utils/mongoClient';
 
 import { get } from '@/api/methods/get';
