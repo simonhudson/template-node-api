@@ -6,6 +6,7 @@ describe('sortObjectByKey', () => {
 			sortObjectByKey({
 				charlie: 'value-charlie',
 				tango: { foo: 'value-tango-foo', bar: 'value-tango-bar' },
+				'foxtrot-1': 'value-foxtrot-1',
 				alpha: ['value-alpha-1', 'value-alpha-2'],
 				delta: 123,
 			})
@@ -13,6 +14,7 @@ describe('sortObjectByKey', () => {
 			alpha: ['value-alpha-1', 'value-alpha-2'],
 			charlie: 'value-charlie',
 			delta: 123,
+			'foxtrot-1': 'value-foxtrot-1',
 			tango: { foo: 'value-tango-foo', bar: 'value-tango-bar' },
 		});
 	});
