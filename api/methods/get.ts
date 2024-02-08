@@ -1,9 +1,9 @@
 import { createError } from '@/api/utils/createError';
-import { Db } from 'mongodb';
+import type { Db } from 'mongodb';
 import type { Response } from 'express';
 
 import type { ApiRequestParams } from '@/api/api';
-interface ApiGetParams extends ApiRequestParams {
+export interface ApiGetParams extends ApiRequestParams {
 	db: Db;
 	res: Response;
 }

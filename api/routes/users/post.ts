@@ -17,8 +17,7 @@ const getInvalidFields = (requestBody: Record<string, string>) => {
 	return invalidFields;
 };
 
-const getDuplicateEntries = async (req: Request, res: Response) => {
-	const requestBody = req.body;
+const getDuplicateEntries = async (requestBody: Record<string, string>) => {
 	const client: MongoClient = mongoClient;
 	const db = client.db(process.env.DB_NAME);
 	const duplicateEntries = await db
@@ -29,7 +28,6 @@ const getDuplicateEntries = async (req: Request, res: Response) => {
 			date_of_birth: requestBody.date_of_birth,
 		})
 		.toArray();
-
 	return duplicateEntries;
 };
 
@@ -44,7 +42,7 @@ export const post = async (req: Request, res: Response) => {
 	}
 
 	// Check if duplicate entries exist
-	const duplicateEntries = await getDuplicateEntries(req, res);
+	const duplicateEntries = await getDuplicateEntries(requestBody);
 	if (duplicateEntries.length) {
 		res.status(httpStatusCodes.CONFLICT);
 		return handleResponse(
