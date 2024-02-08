@@ -1,6 +1,6 @@
 import { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
 import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import type { ApiErrorResponse } from '@/api/api';
 
 type ResponsePayload = {

@@ -5,7 +5,7 @@ import mongoClient from '@/api/utils/mongoClient';
 import { get } from '@/api/methods/get';
 import { post } from '@/api/methods/post';
 import { patch } from '@/api/methods/patch';
-// import { del } from './delete';
+import { del } from '@/api/methods/delete';
 
 import type { ApiRequestParams } from '@/api/api';
 import type { Response } from 'express';
@@ -31,9 +31,9 @@ export const makeRequest = async ({ req, res, collectionName, query, sortBy, sor
 		case 'patch':
 			response = await patch({ req, db, collectionName });
 			break;
-		// case 'delete':
-		// 	await del({ req, res, db, collectionName });
-		// 	break;
+		case 'delete':
+			response = await del({ req, db, collectionName });
+			break;
 	}
 	handleResponse(req, res, response);
 };

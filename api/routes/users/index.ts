@@ -1,55 +1,15 @@
-import { createError } from '@/api/utils/createError';
-import { handleResponse } from '@/api/utils/handleResponse';
-import { makeRequest } from '@/api/utils/makeRequest';
-import { MongoClient } from 'mongodb';
-import { slugify } from '@/api/utils/slugify';
-import dayjs from 'dayjs';
-import express, { Request, Response } from 'express';
-import mongoClient from '@/api/utils/mongoClient';
+import express from 'express';
+import { get } from './get';
+import { post } from './post';
+import { patch } from './patch';
+import { del } from './delete';
 
 const router = express.Router();
 
-const COLLECTION_NAME = 'users';
-
-router.get('/', async (req: Request, res: Response) =>
-	makeRequest({ req, res, collectionName: COLLECTION_NAME, sortBy: 'last_name', sortDirection: 'asc' })
-);
-router.post('/', async (req: Request, res: Response) => {
-	const requestBody = req.body;
-	const client: MongoClient = mongoClient;
-	const db = client.db(process.env.DB_NAME);
-
-	const existingEntry = await db
-		.collection(COLLECTION_NAME)
-		.find({
-			first_name: requestBody.first_name,
-			last_name: requestBody.last_name,
-			date_of_birth: requestBody.date_of_birth,
-		})
-		.toArray();
-
-	if (existingEntry.length) {
-		handleResponse(
-			req,
-			res,
-			createError(
-				`Duplicate entry found for ${requestBody.first_name} ${requestBody.last_name} with D.O.B ${requestBody.date_of_birth}`
-			)
-		);
-	} else {
-		requestBody.slug = slugify(`${requestBody.first_name} ${requestBody.last_name}`);
-		requestBody.age = dayjs().diff(dayjs(requestBody.date_of_birth), 'year');
-		makeRequest({ req, res, collectionName: COLLECTION_NAME });
-	}
-});
-router.patch('/', async (req: Request, res: Response) => {
-	const requestBody = req.body;
-
-	requestBody.slug = slugify(`${requestBody.first_name} ${requestBody.last_name}`);
-	requestBody.age = dayjs().diff(dayjs(requestBody.date_of_birth), 'year');
-	makeRequest({ req, res, collectionName: COLLECTION_NAME });
-});
-// router.delete('/', async (req: Request, res: Response) => makeRequest({ req, res, collectionName: COLLECTION_NAME }));
+router.get('/', async (req: express.Request, res: express.Response) => get(req, res));
+router.post('/', async (req: express.Request, res: express.Response) => post(req, res));
+router.patch('/', async (req: express.Request, res: express.Response) => patch(req, res));
+router.delete('/', async (req: express.Request, res: express.Response) => del(req, res));
 
 // router.get('/captain', async (req: Request, res: Response) =>
 // 	makeRequest({ req, res, collectionName: COLLECTION_NAME, query: { is_captain: true } })
