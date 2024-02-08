@@ -6,21 +6,35 @@ import type { Request } from 'express';
 jest.mock('@/api/utils/createError');
 
 describe('post', () => {
+	let mockReq, mockDb;
+	const collectionName = 'test';
+
+	beforeEach(() => {
+		mockReq = {
+			body: { _id: '65c47f9640783fa3a7e6f195' },
+		} as unknown as Request;
+
+		mockDb = {
+			collection: jest.fn().mockReturnThis(),
+			insertOne: jest.fn().mockResolvedValue(true),
+		} as unknown as Db;
+	});
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
-	const mockReq = {
-		body: { _id: '65c47f9640783fa3a7e6f195' },
-	} as unknown as Request;
+	it(`should handle absence of request body`, async () => {
+		// Given
+		mockReq.body = {};
 
-	const mockDb = {
-		collection: jest.fn().mockReturnThis(),
-		insertOne: jest.fn().mockResolvedValue(true),
-	} as unknown as Db;
+		// When
+		await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
 
-	const collectionName = 'test';
-
+		// Then
+		expect(mockDb.collection).not.toHaveBeenCalled;
+		expect(createError).toHaveBeenCalledWith({ message: 'No request body provided' });
+	});
 	it(`should make expected call to database`, async () => {
 		// When
 		await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
