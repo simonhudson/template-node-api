@@ -1,6 +1,9 @@
+import { createError } from '@/api/utils/createError';
 import { get, ApiGetParams } from './get';
 import type { Db } from 'mongodb';
 import type { Request, Response } from 'express';
+
+jest.mock('@/api/utils/createError');
 
 describe('get', () => {
 	afterEach(() => {
@@ -105,5 +108,19 @@ describe('get', () => {
 		// Then
 		expect(response).toEqual(mockResponse);
 	});
-	// it('should handle errors', async () => {});
+	it('should handle errors', async () => {
+		// Given
+		const mockResponse = [{ foo: 'bar' }];
+		mockDb
+			.collection(collectionName)
+			.find()
+			.sort({})
+			.toArray.mockRejectedValue('Whoops!' as any);
+
+		// When
+		await get({ collectionName, db: mockDb } as unknown as ApiGetParams);
+
+		// Then
+		expect(createError).toHaveBeenCalledWith({ data: 'Whoops!' });
+	});
 });
