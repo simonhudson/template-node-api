@@ -1,5 +1,5 @@
 import express from 'express';
-import { get } from './get';
+import { get, getUser } from './get';
 import { post } from './post';
 import { patch } from './patch';
 import { del } from './delete';
@@ -10,6 +10,9 @@ router.get('/', async (req: express.Request, res: express.Response) => get(req, 
 router.post('/', async (req: express.Request, res: express.Response) => post(req, res));
 router.patch('/', async (req: express.Request, res: express.Response) => patch(req, res));
 router.delete('/', async (req: express.Request, res: express.Response) => del(req, res));
+
+// Keep this :slug route last to allow for other routes to be hit first
+router.get('/:slug', async (req: express.Request, res: express.Response) => getUser(req, res));
 
 // router.get('/captain', async (req: Request, res: Response) =>
 // 	makeRequest({ req, res, collectionName: COLLECTION_NAME, query: { is_captain: true } })
