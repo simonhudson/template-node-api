@@ -1,8 +1,8 @@
-import { sanitizePayload } from '@/api/utils/sanitizePayload';
+import { sanitizeObject } from '@/api/utils/sanitizeObject';
 import { sortObjectByKey } from '@/api/utils/sortObjectByKey';
 
 export const preparePayloadForInsertion = (payload: any) => {
 	let finalPayload = sortObjectByKey(payload);
-	finalPayload = sanitizePayload(finalPayload);
+	finalPayload = sanitizeObject(finalPayload);
 	return finalPayload;
 };

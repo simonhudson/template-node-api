@@ -1,12 +1,10 @@
+import { del } from '@/api/methods/delete';
+import { get } from '@/api/methods/get';
 import { handleResponse } from '@/api/utils/handleResponse';
 import { MongoClient } from 'mongodb';
-import mongoClient from '@/api/utils/mongoClient';
-
-import { get } from '@/api/methods/get';
-import { post } from '@/api/methods/post';
 import { patch } from '@/api/methods/patch';
-import { del } from '@/api/methods/delete';
-
+import { post } from '@/api/methods/post';
+import mongoClient from '@/api/utils/mongoClient';
 import type { ApiRequestParams } from '@/api/api';
 import type { Response } from 'express';
 
