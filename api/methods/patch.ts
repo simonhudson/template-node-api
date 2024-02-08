@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { createError } from '@/api/utils/createError';
 import { Db } from 'mongodb';
-import { preparePayloadForInsertion } from '../utils/preparePayloadForInsertion';
+import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
 import type { ApiRequestParams } from '@/api/api';
 
 export interface ApiPatchParams extends ApiRequestParams {

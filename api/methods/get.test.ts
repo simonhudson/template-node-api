@@ -107,7 +107,6 @@ describe('get', () => {
 	});
 	it('should handle errors', async () => {
 		// Given
-		const mockResponse = [{ foo: 'bar' }];
 		mockDb
 			.collection(collectionName)
 			.find()

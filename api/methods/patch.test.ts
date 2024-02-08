@@ -50,7 +50,6 @@ describe('patch', () => {
 	});
 	it('should handle errors', async () => {
 		// Given
-		const mockResponse = [{ foo: 'bar' }];
 		mockDb.collection(collectionName).updateOne.mockRejectedValue('Whoops!' as any);
 
 		// When
