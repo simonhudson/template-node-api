@@ -1,5 +1,4 @@
 import { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
-import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
 import type { Request, Response } from 'express';
 import type { ApiErrorResponse } from '@/api/api';
 
@@ -26,7 +25,7 @@ export const handleResponse = (
 		| unknown
 ) => {
 	const responsePayload: ResponsePayload = {
-		status: httpStatusCodes.OK,
+		status: res.statusCode,
 		metadata: {
 			endpoint: req.originalUrl,
 			method: req.method,

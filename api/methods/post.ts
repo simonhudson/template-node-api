@@ -14,7 +14,7 @@ interface PostParams extends ApiRequestParams {
 export const post = async ({ req, collectionName, db }: PostParams) => {
 	const requestBody = req.body;
 
-	if (!Object.keys(requestBody).length) return createError('No request body provided');
+	if (!Object.keys(requestBody).length) return createError({ message: 'No request body provided' });
 
 	requestBody.created_at = new Date();
 	requestBody.updated_at = requestBody.created_at;
@@ -28,6 +28,6 @@ export const post = async ({ req, collectionName, db }: PostParams) => {
 			.insertOne(sanitizePayload(finalPayload) as OptionalId<Document>);
 		return response;
 	} catch (error: unknown) {
-		return createError({ error });
+		return createError({ data: error });
 	}
 };

@@ -15,6 +15,6 @@ export const del = async ({ req, collectionName, db }: ApiDeleteParams) => {
 		const response = await db.collection(collectionName).deleteOne(query);
 		return response;
 	} catch (error: unknown) {
-		return createError(error);
+		return createError({ data: error });
 	}
 };

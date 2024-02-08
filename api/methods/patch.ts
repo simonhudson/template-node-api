@@ -28,6 +28,6 @@ export const patch = async ({ req, collectionName, db }: PatchParams) => {
 		const response = await db.collection(collectionName).updateOne(query, payload);
 		return response;
 	} catch (error: unknown) {
-		return createError({ error });
+		return createError({ data: error });
 	}
 };

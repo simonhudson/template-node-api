@@ -9,5 +9,8 @@ export type ApiRequestParams = {
 };
 
 export type ApiErrorResponse = {
-	error: any;
+	error: {
+		data?: any;
+		message?: string;
+	};
 };

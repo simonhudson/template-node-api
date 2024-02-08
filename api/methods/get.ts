@@ -17,6 +17,6 @@ export const get = async ({ collectionName, db, query, sortBy, sortDirection }: 
 		const response = await db.collection(collectionName).find(queryObj).sort(sortQuery).toArray();
 		return response;
 	} catch (error: unknown) {
-		return createError(error);
+		return createError({ data: error });
 	}
 };
