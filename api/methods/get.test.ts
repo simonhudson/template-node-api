@@ -1,13 +1,12 @@
 import { createError } from '@/api/utils/createError';
 import { get, ApiGetParams } from './get';
 import type { Db } from 'mongodb';
-import type { Request, Response } from 'express';
 
 jest.mock('@/api/utils/createError');
 
 describe('get', () => {
 	afterEach(() => {
-		jest.restoreAllMocks();
+		jest.clearAllMocks();
 	});
 
 	const mockDb = {
@@ -16,8 +15,6 @@ describe('get', () => {
 		sort: jest.fn().mockReturnThis(),
 		toArray: jest.fn().mockResolvedValue(true),
 	} as unknown as Db;
-	const mockReq = {} as Request;
-	const mockRes = {} as Response;
 	const collectionName = 'test';
 
 	describe(`should make expected call to database`, () => {

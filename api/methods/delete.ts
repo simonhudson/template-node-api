@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 
 import type { ApiRequestParams } from '@/api/api';
 
-interface ApiDeleteParams extends ApiRequestParams {
+export interface ApiDeleteParams extends ApiRequestParams {
 	db: Db;
 }
 
