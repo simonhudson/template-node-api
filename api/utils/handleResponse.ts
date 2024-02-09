@@ -39,7 +39,7 @@ export const handleResponse = (
 		responsePayload.data = response;
 	}
 
-	if (Array.isArray(response) && response.length > 0) responsePayload.metadata.count = response.length;
+	if (Array.isArray(response)) responsePayload.metadata.count = response.length;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.json(responsePayload);
 };
