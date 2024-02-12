@@ -20,33 +20,30 @@ export const makeRequest = async ({ req, res, collectionName, query, sortBy, sor
 
 	if (!validMethods.includes(METHOD)) {
 		res.status(httpStatusCodes.METHOD_NOT_ALLOWED);
-		return handleResponse(
-			req,
-			res,
-			createError({
-				message: `Invalid method (${METHOD}). Allowed methods are ${validMethods.join(', ')}`,
-			})
-		);
+		const errorResponse = createError({
+			message: `Invalid method (${METHOD}). Valid methods are ${validMethods.join(', ')}`,
+		});
+		handleResponse(req, res, errorResponse);
+	} else {
+		const client: MongoClient = mongoClient;
+		const db = client.db(process.env.DB_NAME);
+
+		let response;
+
+		switch (METHOD) {
+			case GET:
+				response = await get({ req, res, db, collectionName, query, sortBy, sortDirection });
+				break;
+			case POST:
+				response = await post({ req, res, collectionName, db });
+				break;
+			case PATCH:
+				response = await patch({ req, db, collectionName });
+				break;
+			case DELETE:
+				response = await del({ req, db, collectionName });
+				break;
+		}
+		handleResponse(req, res, response);
 	}
-
-	const client: MongoClient = mongoClient;
-	const db = client.db(process.env.DB_NAME);
-
-	let response;
-
-	switch (METHOD) {
-		case GET:
-			response = await get({ req, res, db, collectionName, query, sortBy, sortDirection });
-			break;
-		case POST:
-			response = await post({ req, res, collectionName, db });
-			break;
-		case PATCH:
-			response = await patch({ req, db, collectionName });
-			break;
-		case DELETE:
-			response = await del({ req, db, collectionName });
-			break;
-	}
-	handleResponse(req, res, response);
 };
