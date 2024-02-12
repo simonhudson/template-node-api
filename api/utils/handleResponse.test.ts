@@ -2,7 +2,9 @@ import { handleResponse } from './handleResponse';
 import type { Request, Response } from 'express';
 
 describe('handleResponse', () => {
-	let mockReq, mockRes, response;
+	let mockReq = {} as Request;
+	let mockRes = {} as Response;
+	let response = {} as { [key: string]: any };
 
 	beforeEach(() => {
 		mockReq = {
@@ -15,7 +17,7 @@ describe('handleResponse', () => {
 			json: jest.fn() as jest.Mock,
 			status: jest.fn() as jest.Mock,
 		} as unknown as Response;
-		response = 'response-string';
+		response = { foo: 'response-string' };
 	});
 
 	afterEach(() => {
@@ -80,7 +82,7 @@ describe('handleResponse', () => {
 		expect(mockRes.json).toHaveBeenCalledWith({
 			status: 200,
 			metadata: { endpoint: 'orginal-url', method: 'foo' },
-			data: 'response-string',
+			data: { foo: 'response-string' },
 		});
 	});
 });

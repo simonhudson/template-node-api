@@ -32,7 +32,7 @@ describe('delete', () => {
 	it('should return the expected response', async () => {
 		// Given
 		const mockResponse = [{ foo: 'bar' }];
-		mockDb.collection(collectionName).deleteOne.mockResolvedValue(mockResponse as any);
+		mockDb.collection(collectionName).deleteOne = jest.fn().mockResolvedValue(mockResponse as any);
 
 		// When
 		const response = await del({ req: mockReq, collectionName, db: mockDb } as unknown as ApiDeleteParams);
@@ -42,7 +42,8 @@ describe('delete', () => {
 	});
 	it('should handle errors', async () => {
 		// Given
-		mockDb.collection(collectionName).deleteOne.mockRejectedValue('Whoops!' as any);
+		const mockResponse = 'Whoops!';
+		mockDb.collection(collectionName).deleteOne = jest.fn().mockRejectedValue(mockResponse as any);
 
 		// When
 		await del({ req: mockReq, collectionName, db: mockDb } as unknown as ApiDeleteParams);

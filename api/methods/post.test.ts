@@ -2,13 +2,15 @@ import { createError } from '@/api/utils/createError';
 import { handleResponse } from '../utils/handleResponse';
 import { post, ApiPostParams } from './post';
 import type { Db } from 'mongodb';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 
 jest.mock('@/api/utils/createError');
 jest.mock('@/api/utils/handleResponse');
 
 describe('post', () => {
-	let mockReq, mockRes, mockDb;
+	let mockReq = {} as Request;
+	let mockRes = {} as Response;
+	let mockDb = {} as Db;
 	const collectionName = 'test';
 
 	beforeEach(() => {
@@ -20,7 +22,7 @@ describe('post', () => {
 			setHeader: jest.fn() as jest.Mock,
 			status: jest.fn() as jest.Mock,
 			json: jest.fn() as jest.Mock,
-		} as unknown as Request;
+		} as unknown as Response;
 
 		mockDb = {
 			collection: jest.fn().mockReturnThis(),
@@ -60,7 +62,7 @@ describe('post', () => {
 	it('should return the expected response', async () => {
 		// Given
 		const mockResponse = [{ foo: 'bar' }];
-		mockDb.collection(collectionName).insertOne.mockResolvedValue(mockResponse as any);
+		mockDb.collection(collectionName).insertOne = jest.fn().mockResolvedValue(mockResponse as any);
 
 		// When
 		const response = await post({
@@ -75,7 +77,8 @@ describe('post', () => {
 	});
 	it('should handle errors', async () => {
 		// Given
-		mockDb.collection(collectionName).insertOne.mockRejectedValue('Whoops!' as any);
+		const mockResponse = 'Whoops!';
+		mockDb.collection(collectionName).insertOne = jest.fn().mockRejectedValue(mockResponse as any);
 
 		// When
 		await post({ req: mockReq, res: mockRes, collectionName, db: mockDb } as unknown as ApiPostParams);

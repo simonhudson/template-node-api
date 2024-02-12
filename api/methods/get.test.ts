@@ -93,11 +93,7 @@ describe('get', () => {
 	it('should return the expected response', async () => {
 		// Given
 		const mockResponse = [{ foo: 'bar' }];
-		mockDb
-			.collection(collectionName)
-			.find()
-			.sort({})
-			.toArray.mockResolvedValue(mockResponse as any);
+		mockDb.collection(collectionName).find().sort({}).toArray = jest.fn().mockResolvedValue(mockResponse as any);
 
 		// When
 		const response = await get({ collectionName, db: mockDb } as unknown as ApiGetParams);
@@ -106,12 +102,8 @@ describe('get', () => {
 		expect(response).toEqual(mockResponse);
 	});
 	it('should handle errors', async () => {
-		// Given
-		mockDb
-			.collection(collectionName)
-			.find()
-			.sort({})
-			.toArray.mockRejectedValue('Whoops!' as any);
+		const mockResponse = 'Whoops!';
+		mockDb.collection(collectionName).find().sort({}).toArray = jest.fn().mockRejectedValue(mockResponse as any);
 
 		// When
 		await get({ collectionName, db: mockDb } as unknown as ApiGetParams);

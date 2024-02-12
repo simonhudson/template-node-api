@@ -40,7 +40,7 @@ describe('patch', () => {
 	it('should return the expected response', async () => {
 		// Given
 		const mockResponse = [{ foo: 'bar' }];
-		mockDb.collection(collectionName).updateOne.mockResolvedValue(mockResponse as any);
+		mockDb.collection(collectionName).deleteOne = jest.fn().mockResolvedValue(mockResponse as any);
 
 		// When
 		const response = await patch({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPatchParams);
@@ -50,7 +50,8 @@ describe('patch', () => {
 	});
 	it('should handle errors', async () => {
 		// Given
-		mockDb.collection(collectionName).updateOne.mockRejectedValue('Whoops!' as any);
+		const mockResponse = 'Whoops!';
+		mockDb.collection(collectionName).deleteOne = jest.fn().mockRejectedValue(mockResponse as any);
 
 		// When
 		await patch({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPatchParams);
