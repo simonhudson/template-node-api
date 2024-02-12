@@ -1,6 +1,9 @@
+import { createError } from '@/api/utils/createError';
 import { del } from '@/api/methods/delete';
+import { DELETE, GET, PATCH, POST, validMethods } from '@/api/constants/methods';
 import { get } from '@/api/methods/get';
 import { handleResponse } from '@/api/utils/handleResponse';
+import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
 import { MongoClient } from 'mongodb';
 import { patch } from '@/api/methods/patch';
 import { post } from '@/api/methods/post';
@@ -13,23 +16,35 @@ interface MakeRequestParams extends ApiRequestParams {
 }
 
 export const makeRequest = async ({ req, res, collectionName, query, sortBy, sortDirection }: MakeRequestParams) => {
-	const METHOD = req?.method?.toLowerCase();
+	const METHOD = req?.method?.toUpperCase();
+
+	if (!validMethods.includes(METHOD)) {
+		res.status(httpStatusCodes.METHOD_NOT_ALLOWED);
+		return handleResponse(
+			req,
+			res,
+			createError({
+				message: `Invalid method (${METHOD}). Allowed methods are ${validMethods.join(', ')}`,
+			})
+		);
+	}
+
 	const client: MongoClient = mongoClient;
 	const db = client.db(process.env.DB_NAME);
 
 	let response;
 
 	switch (METHOD) {
-		case 'get':
+		case GET:
 			response = await get({ req, res, db, collectionName, query, sortBy, sortDirection });
 			break;
-		case 'post':
+		case POST:
 			response = await post({ req, res, collectionName, db });
 			break;
-		case 'patch':
+		case PATCH:
 			response = await patch({ req, db, collectionName });
 			break;
-		case 'delete':
+		case DELETE:
 			response = await del({ req, db, collectionName });
 			break;
 	}
