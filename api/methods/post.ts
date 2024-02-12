@@ -4,16 +4,21 @@ import { OptionalId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
 import type { ApiRequestParams } from '@/api/api';
 import type { Response } from 'express';
+import { handleResponse } from '@/api/utils/handleResponse';
+import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
 
 export interface ApiPostParams extends ApiRequestParams {
 	db: Db;
 	res: Response;
 }
 
-export const post = async ({ req, collectionName, db }: ApiPostParams) => {
+export const post = async ({ req, res, collectionName, db }: ApiPostParams) => {
 	const requestBody = req.body;
 
-	if (!Object.keys(requestBody).length) return createError({ message: 'No request body provided' });
+	if (!Object.keys(requestBody).length) {
+		res.status(httpStatusCodes.BAD_REQUEST);
+		return handleResponse(req, res, createError({ message: 'No request body provided' }));
+	}
 
 	requestBody.created_at = new Date();
 	requestBody.updated_at = requestBody.created_at;
