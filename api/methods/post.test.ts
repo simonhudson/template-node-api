@@ -1,17 +1,25 @@
 import { createError } from '@/api/utils/createError';
+import { handleResponse } from '../utils/handleResponse';
 import { post, ApiPostParams } from './post';
 import type { Db } from 'mongodb';
 import type { Request } from 'express';
 
 jest.mock('@/api/utils/createError');
+jest.mock('@/api/utils/handleResponse');
 
 describe('post', () => {
-	let mockReq, mockDb;
+	let mockReq, mockRes, mockDb;
 	const collectionName = 'test';
 
 	beforeEach(() => {
 		mockReq = {
 			body: { _id: '65c47f9640783fa3a7e6f195' },
+		} as unknown as Request;
+
+		mockRes = {
+			setHeader: jest.fn() as jest.Mock,
+			status: jest.fn() as jest.Mock,
+			json: jest.fn() as jest.Mock,
 		} as unknown as Request;
 
 		mockDb = {
@@ -29,15 +37,17 @@ describe('post', () => {
 		mockReq.body = {};
 
 		// When
-		await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
+		await post({ req: mockReq, res: mockRes, collectionName, db: mockDb } as unknown as ApiPostParams);
 
 		// Then
-		expect(mockDb.collection).not.toHaveBeenCalled;
+		expect(mockRes.status).toHaveBeenCalledWith(400);
+		expect(handleResponse).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledWith({ message: 'No request body provided' });
+		expect(mockDb.collection).not.toHaveBeenCalled;
 	});
 	it(`should make expected call to database`, async () => {
 		// When
-		await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
+		await post({ req: mockReq, res: mockRes, collectionName, db: mockDb } as unknown as ApiPostParams);
 
 		// Then
 		expect(mockDb.collection).toHaveBeenCalledWith('test');
@@ -53,7 +63,12 @@ describe('post', () => {
 		mockDb.collection(collectionName).insertOne.mockResolvedValue(mockResponse as any);
 
 		// When
-		const response = await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
+		const response = await post({
+			req: mockReq,
+			res: mockRes,
+			collectionName,
+			db: mockDb,
+		} as unknown as ApiPostParams);
 
 		// Then
 		expect(response).toEqual(mockResponse);
@@ -63,7 +78,7 @@ describe('post', () => {
 		mockDb.collection(collectionName).insertOne.mockRejectedValue('Whoops!' as any);
 
 		// When
-		await post({ req: mockReq, collectionName, db: mockDb } as unknown as ApiPostParams);
+		await post({ req: mockReq, res: mockRes, collectionName, db: mockDb } as unknown as ApiPostParams);
 
 		// Then
 		expect(createError).toHaveBeenCalledWith({ data: 'Whoops!' });

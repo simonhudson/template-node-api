@@ -40,6 +40,7 @@ export const handleResponse = (
 	}
 
 	if (Array.isArray(response)) responsePayload.metadata.count = response.length;
+	res.status(res.statusCode);
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.json(responsePayload);
 };

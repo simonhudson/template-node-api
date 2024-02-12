@@ -13,6 +13,7 @@ describe('handleResponse', () => {
 			statusCode: 200,
 			setHeader: jest.fn() as jest.Mock,
 			json: jest.fn() as jest.Mock,
+			status: jest.fn() as jest.Mock,
 		} as unknown as Response;
 		response = 'response-string';
 	});
@@ -24,14 +25,16 @@ describe('handleResponse', () => {
 	it('should return error response', () => {
 		// Given
 		response = { error: { message: 'error-message', data: 'error-data' } };
+		mockRes.statusCode = 400;
 
 		// When
 		handleResponse(mockReq, mockRes, response);
 
 		// Then
+		expect(mockRes.status).toHaveBeenCalledWith(400);
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(mockRes.json).toHaveBeenCalledWith({
-			status: 200,
+			status: 400,
 			metadata: { endpoint: 'orginal-url', method: 'foo' },
 			error: { message: 'error-message', data: 'error-data' },
 			data: [],
@@ -45,6 +48,7 @@ describe('handleResponse', () => {
 		handleResponse(mockReq, mockRes, response);
 
 		// Then
+		expect(mockRes.status).toHaveBeenCalledWith(200);
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(mockRes.json).toHaveBeenCalledWith({
 			status: 200,
