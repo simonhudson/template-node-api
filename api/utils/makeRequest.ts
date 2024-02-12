@@ -15,7 +15,14 @@ interface MakeRequestParams extends ApiRequestParams {
 	res: Response;
 }
 
-export const makeRequest = async ({ req, res, collectionName, query, sortBy, sortDirection }: MakeRequestParams) => {
+export const makeRequest = async ({
+	req,
+	res,
+	collectionName,
+	query,
+	sortBy,
+	sortDirection,
+}: MakeRequestParams): Promise<void> => {
 	const METHOD = req?.method?.toUpperCase();
 
 	if (!validMethods.includes(METHOD)) {

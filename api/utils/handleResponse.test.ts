@@ -1,10 +1,11 @@
 import { handleResponse } from './handleResponse';
 import type { Request, Response } from 'express';
+import type { BaseObject } from '@/api/types/base';
 
 describe('handleResponse', () => {
 	let mockReq = {} as Request;
 	let mockRes = {} as Response;
-	let response = {} as { [key: string]: any };
+	let response = {} as BaseObject;
 
 	beforeEach(() => {
 		mockReq = {

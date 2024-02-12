@@ -1,6 +1,6 @@
-import { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
-import type { Request, Response } from 'express';
 import type { ApiErrorResponse } from '@/api/api';
+import type { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
+import type { Request, Response } from 'express';
 
 type ResponsePayload = {
 	status: number;
@@ -23,7 +23,7 @@ export const handleResponse = (
 		| DeleteResult
 		| ApiErrorResponse
 		| unknown
-) => {
+): void => {
 	const responsePayload: ResponsePayload = {
 		status: res.statusCode,
 		metadata: {

@@ -1,14 +1,20 @@
 import { createError } from '@/api/utils/createError';
+import type { ApiErrorResponse, ApiRequestParams } from '@/api/api';
 import type { Db } from 'mongodb';
 import type { Response } from 'express';
-
-import type { ApiRequestParams } from '@/api/api';
+import type { WithId } from 'mongodb';
 export interface ApiGetParams extends ApiRequestParams {
 	db: Db;
 	res: Response;
 }
 
-export const get = async ({ collectionName, db, query, sortBy, sortDirection }: ApiGetParams) => {
+export const get = async ({
+	collectionName,
+	db,
+	query,
+	sortBy,
+	sortDirection,
+}: ApiGetParams): Promise<WithId<any>[] | ApiErrorResponse> => {
 	let queryObj = query || {};
 	let sortQuery = {};
 	if (sortBy) sortQuery = { [sortBy]: sortDirection === 'asc' ? 1 : -1 };

@@ -1,18 +1,23 @@
 import { createError } from '@/api/utils/createError';
-import { Db } from 'mongodb';
-import { OptionalId } from 'mongodb';
-import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
-import type { ApiRequestParams } from '@/api/api';
-import type { Response } from 'express';
 import { handleResponse } from '@/api/utils/handleResponse';
 import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
+import { OptionalId } from 'mongodb';
+import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
+import type { ApiErrorResponse, ApiRequestParams } from '@/api/api';
+import type { Db, InsertOneResult } from 'mongodb';
+import type { Response } from 'express';
 
 export interface ApiPostParams extends ApiRequestParams {
 	db: Db;
 	res: Response;
 }
 
-export const post = async ({ req, res, collectionName, db }: ApiPostParams) => {
+export const post = async ({
+	req,
+	res,
+	collectionName,
+	db,
+}: ApiPostParams): Promise<InsertOneResult<Document> | ApiErrorResponse | void> => {
 	const requestBody = req.body;
 
 	if (!Object.keys(requestBody).length) {

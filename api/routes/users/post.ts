@@ -1,12 +1,11 @@
 import { COLLECTION_NAME } from './constants';
 import { createError } from '@/api/utils/createError';
+import { getDuplicateEntries } from '@/api/utils/getDuplicateEntries';
 import { handleResponse } from '@/api/utils/handleResponse';
 import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
 import { makeRequest } from '@/api/utils/makeRequest';
 import { slugify } from '@/api/utils/slugify';
 import dayjs from 'dayjs';
-import mongoClient from '@/api/utils/mongoClient';
-import type { MongoClient } from 'mongodb';
 import type { Request, Response } from 'express';
 
 const getInvalidFields = (requestBody: Record<string, string>) => {
@@ -15,20 +14,6 @@ const getInvalidFields = (requestBody: Record<string, string>) => {
 		if (!requestBody[field]) invalidFields.push(field);
 	});
 	return invalidFields;
-};
-
-const getDuplicateEntries = async (requestBody: Record<string, string>) => {
-	const client: MongoClient = mongoClient;
-	const db = client.db(process.env.DB_NAME);
-	const duplicateEntries = await db
-		.collection(COLLECTION_NAME)
-		.find({
-			first_name: requestBody.first_name,
-			last_name: requestBody.last_name,
-			date_of_birth: requestBody.date_of_birth,
-		})
-		.toArray();
-	return duplicateEntries;
 };
 
 export const post = async (req: Request, res: Response) => {
@@ -42,7 +27,7 @@ export const post = async (req: Request, res: Response) => {
 	}
 
 	// Check if duplicate entries exist
-	const duplicateEntries = await getDuplicateEntries(requestBody);
+	const duplicateEntries = await getDuplicateEntries(COLLECTION_NAME, requestBody);
 	if (duplicateEntries.length) {
 		res.status(httpStatusCodes.CONFLICT);
 		return handleResponse(
