@@ -13,8 +13,7 @@ try {
 	mongoClient.connect();
 	console.log('Successfully connected to MongoDB Atlas!');
 } catch (error) {
-	console.error('Connection to MongoDB Atlas failed!', error);
-	process.exit();
+	throw Error(`Connection to MongoDB Atlas failed: ${error}`);
 }
 
 export default mongoClient;
