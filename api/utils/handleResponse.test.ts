@@ -1,6 +1,6 @@
 import { handleResponse } from './handleResponse';
-import type { Request, Response } from 'express';
 import type { BaseObject } from '@/api/types/base';
+import type { Request, Response } from 'express';
 
 describe('handleResponse', () => {
 	let mockReq = {} as Request;

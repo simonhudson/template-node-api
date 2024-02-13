@@ -1,23 +1,23 @@
-import { makeRequest } from './makeRequest';
-import { handleResponse } from '@/api/utils/handleResponse';
 import { createError } from '@/api/utils/createError';
-import mongoClient from '@/api/utils/mongoClient';
-import type { Request, Response } from 'express';
-import type { Db } from 'mongodb';
-import { get } from '@/api/methods/get';
-import { post } from '@/api/methods/post';
-import { patch } from '@/api/methods/patch';
 import { del } from '@/api/methods/delete';
+import { get } from '@/api/methods/get';
+import { handleResponse } from '@/api/utils/handleResponse';
+import { makeRequest } from './makeRequest';
+import { patch } from '@/api/methods/patch';
+import { post } from '@/api/methods/post';
+import mongoClient from '@/api/utils/mongoClient';
+import type { Db } from 'mongodb';
+import type { Request, Response } from 'express';
 
-jest.mock('@/api/utils/handleResponse');
 jest.mock('@/api/utils/createError');
-jest.mock('mongodb');
+jest.mock('@/api/utils/handleResponse');
 jest.mock('@/api/utils/mongoClient');
+jest.mock('mongodb');
 
-jest.mock('@/api/methods/get');
-jest.mock('@/api/methods/post');
-jest.mock('@/api/methods/patch');
 jest.mock('@/api/methods/delete');
+jest.mock('@/api/methods/get');
+jest.mock('@/api/methods/patch');
+jest.mock('@/api/methods/post');
 
 describe('makeRequest', () => {
 	let mockReq = {} as Request;

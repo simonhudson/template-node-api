@@ -1,5 +1,5 @@
-import mongoClient from '@/api/utils/mongoClient';
 import { getDuplicateEntries } from './getDuplicateEntries';
+import mongoClient from '@/api/utils/mongoClient';
 import type { BaseObject } from '@/api/types/base';
 
 jest.mock('mongodb');
