@@ -1,5 +1,3 @@
-import { MongoClient } from 'mongodb';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoClient from '@/api/utils/mongoClient';
 import { getDuplicateEntries } from './getDuplicateEntries';
 import type { BaseObject } from '@/api/types/base';

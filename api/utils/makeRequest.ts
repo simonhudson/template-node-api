@@ -39,16 +39,16 @@ export const makeRequest = async ({
 
 		switch (METHOD) {
 			case GET:
-				response = await get({ req, res, db, collectionName, query, sortBy, sortDirection });
+				response = await get({ req, res, collectionName, db, query, sortBy, sortDirection });
 				break;
 			case POST:
 				response = await post({ req, res, collectionName, db });
 				break;
 			case PATCH:
-				response = await patch({ req, db, collectionName });
+				response = await patch({ req, collectionName, db });
 				break;
 			case DELETE:
-				response = await del({ req, db, collectionName });
+				response = await del({ req, collectionName, db });
 				break;
 		}
 		handleResponse(req, res, response);
