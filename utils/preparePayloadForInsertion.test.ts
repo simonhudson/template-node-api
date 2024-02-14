@@ -1,9 +1,9 @@
 import { preparePayloadForInsertion } from './preparePayloadForInsertion';
-import { sanitizeObject } from '@/api/utils/sanitizeObject';
-import { sortObjectByKey } from '@/api/utils/sortObjectByKey';
+import { sanitizeObject } from '@/utils/sanitizeObject';
+import { sortObjectByKey } from '@/utils/sortObjectByKey';
 
-jest.mock('@/api/utils/sanitizeObject');
-jest.mock('@/api/utils/sortObjectByKey');
+jest.mock('@/utils/sanitizeObject');
+jest.mock('@/utils/sortObjectByKey');
 
 describe('preparePayloadForInsertion', () => {
 	it('should call sorting and sanitizing functions', () => {

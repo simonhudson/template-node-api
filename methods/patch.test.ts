@@ -1,9 +1,9 @@
-import { createError } from '@/api/utils/createError';
+import { createError } from '@/utils/createError';
 import { patch, ApiPatchParams } from './patch';
 import type { Db } from 'mongodb';
 import type { Request } from 'express';
 
-jest.mock('@/api/utils/createError');
+jest.mock('@/utils/createError');
 
 describe('patch', () => {
 	afterEach(() => {

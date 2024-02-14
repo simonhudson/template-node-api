@@ -1,9 +1,9 @@
-import { createError } from '@/api/utils/createError';
-import { handleResponse } from '@/api/utils/handleResponse';
-import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
+import { createError } from '@/utils/createError';
+import { handleResponse } from '@/utils/handleResponse';
+import { httpStatusCodes } from '@/constants/httpStatusCodes';
 import { OptionalId } from 'mongodb';
-import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
-import type { ApiErrorResponse, ApiRequestParams } from '@/api/types/api';
+import { preparePayloadForInsertion } from '@/utils/preparePayloadForInsertion';
+import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
 import type { Db, InsertOneResult } from 'mongodb';
 import type { Response } from 'express';
 

@@ -1,11 +1,11 @@
-import { createError } from '@/api/utils/createError';
+import { createError } from '@/utils/createError';
 import { handleResponse } from '../utils/handleResponse';
 import { post, ApiPostParams } from './post';
 import type { Db } from 'mongodb';
 import type { Request, Response } from 'express';
 
-jest.mock('@/api/utils/createError');
-jest.mock('@/api/utils/handleResponse');
+jest.mock('@/utils/createError');
+jest.mock('@/utils/handleResponse');
 
 describe('post', () => {
 	let mockReq = {} as Request;

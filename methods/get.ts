@@ -1,5 +1,5 @@
-import { createError } from '@/api/utils/createError';
-import type { ApiErrorResponse, ApiRequestParams } from '@/api/types/api';
+import { createError } from '@/utils/createError';
+import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
 import type { Db } from 'mongodb';
 import type { Response } from 'express';
 import type { WithId } from 'mongodb';

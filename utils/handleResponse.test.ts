@@ -1,5 +1,5 @@
 import { handleResponse } from './handleResponse';
-import type { BaseObject } from '@/api/types/base';
+import type { BaseObject } from '@/types/base';
 import type { Request, Response } from 'express';
 
 describe('handleResponse', () => {

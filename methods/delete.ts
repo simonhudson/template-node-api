@@ -1,7 +1,7 @@
-import { createError } from '@/api/utils/createError';
+import { createError } from '@/utils/createError';
 import { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
-import type { ApiErrorResponse, ApiRequestParams } from '@/api/types/api';
+import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
 import type { DeleteResult } from 'mongodb';
 
 export interface ApiDeleteParams extends ApiRequestParams {

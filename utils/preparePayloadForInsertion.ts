@@ -1,6 +1,6 @@
-import { sanitizeObject } from '@/api/utils/sanitizeObject';
-import { sortObjectByKey } from '@/api/utils/sortObjectByKey';
-import type { BaseObject } from '@/api/types/base';
+import { sanitizeObject } from '@/utils/sanitizeObject';
+import { sortObjectByKey } from '@/utils/sortObjectByKey';
+import type { BaseObject } from '@/types/base';
 
 export const preparePayloadForInsertion = (payload: BaseObject): BaseObject => {
 	let finalPayload = sortObjectByKey(payload);

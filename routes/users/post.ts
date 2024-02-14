@@ -1,10 +1,10 @@
 import { COLLECTION_NAME } from './constants';
-import { createError } from '@/api/utils/createError';
-import { getDuplicateEntries } from '@/api/utils/getDuplicateEntries';
-import { handleResponse } from '@/api/utils/handleResponse';
-import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
-import { makeRequest } from '@/api/utils/makeRequest';
-import { slugify } from '@/api/utils/slugify';
+import { createError } from '@/utils/createError';
+import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
+import { handleResponse } from '@/utils/handleResponse';
+import { httpStatusCodes } from '@/constants/httpStatusCodes';
+import { makeRequest } from '@/utils/makeRequest';
+import { slugify } from '@/utils/slugify';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 

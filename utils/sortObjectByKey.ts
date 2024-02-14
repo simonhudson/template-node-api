@@ -1,4 +1,4 @@
-import type { BaseObject } from '@/api/types/base';
+import type { BaseObject } from '@/types/base';
 
 export const sortObjectByKey = (obj: BaseObject): BaseObject => {
 	const newKeys: any[] = Object.keys(obj).sort();

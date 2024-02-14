@@ -1,14 +1,14 @@
-import { createError } from '@/api/utils/createError';
-import { getDuplicateEntries } from '@/api/utils/getDuplicateEntries';
-import { handleResponse } from '@/api/utils/handleResponse';
-import { makeRequest } from '@/api/utils/makeRequest';
+import { createError } from '@/utils/createError';
+import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
+import { handleResponse } from '@/utils/handleResponse';
+import { makeRequest } from '@/utils/makeRequest';
 import { post } from './post';
 import type { Request, Response } from 'express';
 
-jest.mock('@/api/utils/createError');
-jest.mock('@/api/utils/getDuplicateEntries');
-jest.mock('@/api/utils/handleResponse');
-jest.mock('@/api/utils/makeRequest');
+jest.mock('@/utils/createError');
+jest.mock('@/utils/getDuplicateEntries');
+jest.mock('@/utils/handleResponse');
+jest.mock('@/utils/makeRequest');
 
 describe('post', () => {
 	let mockReq = {} as Request;

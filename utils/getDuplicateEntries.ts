@@ -1,5 +1,5 @@
-import mongoClient from '@/api/utils/mongoClient';
-import type { BaseObject } from '@/api/types/base';
+import mongoClient from '@/utils/mongoClient';
+import type { BaseObject } from '@/types/base';
 import type { MongoClient } from 'mongodb';
 import type { WithId } from 'mongodb';
 

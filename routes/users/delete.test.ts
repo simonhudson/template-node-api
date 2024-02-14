@@ -1,10 +1,10 @@
-import { patch } from './patch';
-import { makeRequest } from '@/api/utils/makeRequest';
+import { del } from './delete';
+import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 
-jest.mock('@/api/utils/makeRequest');
+jest.mock('@/utils/makeRequest');
 
-describe('patch', () => {
+describe('del', () => {
 	let mockReq = {} as Request;
 	let mockRes = {} as Response;
 
@@ -21,7 +21,7 @@ describe('patch', () => {
 
 	it('should make expected request', async () => {
 		// When
-		await patch(mockReq, mockRes);
+		await del(mockReq, mockRes);
 
 		// Then
 		expect(makeRequest).toHaveBeenCalledTimes(1);

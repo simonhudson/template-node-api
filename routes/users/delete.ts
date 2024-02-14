@@ -1,5 +1,5 @@
 import { COLLECTION_NAME } from './constants';
-import { makeRequest } from '@/api/utils/makeRequest';
+import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 
 export const del = async (req: Request, res: Response): Promise<void> => {

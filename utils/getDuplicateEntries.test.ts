@@ -1,9 +1,9 @@
 import { getDuplicateEntries } from './getDuplicateEntries';
-import mongoClient from '@/api/utils/mongoClient';
-import type { BaseObject } from '@/api/types/base';
+import mongoClient from '@/utils/mongoClient';
+import type { BaseObject } from '@/types/base';
 
 jest.mock('mongodb');
-jest.mock('@/api/utils/mongoClient');
+jest.mock('@/utils/mongoClient');
 
 describe('getDuplicateEntries', () => {
 	let requestBody: BaseObject = {};

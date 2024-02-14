@@ -1,8 +1,8 @@
 import { get } from './get';
-import { makeRequest } from '@/api/utils/makeRequest';
+import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 
-jest.mock('@/api/utils/makeRequest');
+jest.mock('@/utils/makeRequest');
 
 describe('get', () => {
 	let mockReq = {} as Request;

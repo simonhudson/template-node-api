@@ -1,8 +1,8 @@
-import { createError } from '@/api/utils/createError';
+import { createError } from '@/utils/createError';
 import { get, ApiGetParams } from './get';
 import type { Db } from 'mongodb';
 
-jest.mock('@/api/utils/createError');
+jest.mock('@/utils/createError');
 
 describe('get', () => {
 	afterEach(() => {
