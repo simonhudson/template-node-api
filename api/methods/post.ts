@@ -3,7 +3,7 @@ import { handleResponse } from '@/api/utils/handleResponse';
 import { httpStatusCodes } from '@/api/constants/httpStatusCodes';
 import { OptionalId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
-import type { ApiErrorResponse, ApiRequestParams } from '@/api/api';
+import type { ApiErrorResponse, ApiRequestParams } from '@/api/types/api';
 import type { Db, InsertOneResult } from 'mongodb';
 import type { Response } from 'express';
 

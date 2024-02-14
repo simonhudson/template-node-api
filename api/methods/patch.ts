@@ -2,7 +2,7 @@ import { createError } from '@/api/utils/createError';
 import { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/api/utils/preparePayloadForInsertion';
-import type { ApiErrorResponse, ApiRequestParams } from '@/api/api';
+import type { ApiErrorResponse, ApiRequestParams } from '@/api/types/api';
 import type { UpdateResult } from 'mongodb';
 export interface ApiPatchParams extends ApiRequestParams {
 	db: Db;

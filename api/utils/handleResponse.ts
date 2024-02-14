@@ -1,4 +1,4 @@
-import type { ApiErrorResponse } from '@/api/api';
+import type { ApiErrorResponse } from '@/api/types/api';
 import type { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
 import type { Request, Response } from 'express';
 

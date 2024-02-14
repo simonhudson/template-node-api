@@ -1,4 +1,4 @@
-import type { ApiErrorResponse } from '@/api/api';
+import type { ApiErrorResponse } from '@/api/types/api';
 
 export const createError = ({ message, data }: { message?: string; data?: unknown }): ApiErrorResponse => {
 	return { error: { message, data } };
