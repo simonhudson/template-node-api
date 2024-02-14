@@ -4,7 +4,7 @@ import { slugify } from '@/api/utils/slugify';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 
-export const patch = async (req: Request, res: Response) => {
+export const patch = async (req: Request, res: Response): Promise<void> => {
 	// const requestBody = req.body;
 	// requestBody.slug = slugify(`${requestBody.first_name} ${requestBody.last_name}`);
 	// requestBody.age = dayjs().diff(dayjs(requestBody.date_of_birth), 'year');

@@ -8,15 +8,15 @@ import { slugify } from '@/api/utils/slugify';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 
-const getInvalidFields = (requestBody: Record<string, string>) => {
+const getInvalidFields = (requestBody: Record<string, string>): string[] => {
 	const invalidFields: string[] = [];
-	['first_name', 'last_name', 'date_of_birth'].forEach((field) => {
+	['first_name', 'last_name', 'date_of_birth'].forEach((field): void => {
 		if (!requestBody[field]) invalidFields.push(field);
 	});
 	return invalidFields;
 };
 
-export const post = async (req: Request, res: Response) => {
+export const post = async (req: Request, res: Response): Promise<void> => {
 	const requestBody = req.body;
 
 	// Check if required fields are present

@@ -12,7 +12,9 @@ export const getDuplicateEntries = async (
 	const db = client.db(process.env.DB_NAME);
 
 	const objectToCheck: BaseObject = {};
-	keysToCheck.forEach((key) => (objectToCheck[key] = body[key]));
+	keysToCheck.forEach((key): void => {
+		objectToCheck[key] = body[key];
+	});
 
 	const duplicateEntries = await db.collection(collectionName).find(objectToCheck).toArray();
 	return duplicateEntries;
