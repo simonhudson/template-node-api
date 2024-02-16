@@ -7,5 +7,5 @@ export const httpStatusCodes = {
 	OK: 200,
 	SERVER_ERROR: 500,
 	UNAUTHORIZED: 401,
-	UNKOWN_ERROR: 520,
+	UNKNOWN_ERROR: 520,
 };
