@@ -23,7 +23,7 @@ describe('obfuscateObject', () => {
 			bar: '[OBFUSCATED]',
 			lorem: {
 				ipsum: 'ipsum-value',
-				dolor: 42,
+				dolor: '[OBFUSCATED]',
 				baz: '[OBFUSCATED]',
 			},
 			baz: [{ foo: 'foo-value-2' }, { bar: '[OBFUSCATED]', woof: { foo: 'another-value' } }],
@@ -36,7 +36,7 @@ describe('obfuscateObject', () => {
 			bar: '[OBFUSCATED]',
 			lorem: {
 				ipsum: '[OBFUSCATED]',
-				dolor: 42,
+				dolor: '[OBFUSCATED]',
 				baz: '[OBFUSCATED]',
 			},
 			baz: [{ foo: '[OBFUSCATED]' }, { bar: '[OBFUSCATED]', woof: { foo: '[OBFUSCATED]' } }],
@@ -49,7 +49,7 @@ describe('obfuscateObject', () => {
 			bar: 'some-replacement',
 			lorem: {
 				ipsum: 'some-replacement',
-				dolor: 42,
+				dolor: 'some-replacement',
 				baz: 'some-replacement',
 			},
 			baz: [{ foo: 'some-replacement' }, { bar: 'some-replacement', woof: { foo: 'some-replacement' } }],
