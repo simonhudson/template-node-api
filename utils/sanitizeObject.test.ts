@@ -4,22 +4,26 @@ describe('sanitizeObject', () => {
 	it('should sanitize string values', () => {
 		// When
 		const actual = sanitizeObject({
-			foo: '<alert>hello</alert>',
+			foo: '<script>alert("hello")</script>',
 			bar: true,
 			lorem: {
-				ipsum: ['<alert>hello</alert>', '<alert>goodbye</alert>'],
+				ipsum: ['<script>alert("hello")</script>', '<script>alert("goodbye")</script>'],
 				dolor: 42,
 			},
-			ipsum: [{ foo: '<alert>hello</alert>' }, { bar: '<alert>goodbye</alert>' }],
+			ipsum: [{ foo: '<script>alert("hello")</script>' }, { bar: '<script>alert("goodbye")</script>' }],
 		});
+
 		expect(actual).toEqual({
-			foo: '&lt;alert&gt;hello&lt;/alert&gt;',
+			foo: '&lt;script&gt;alert("hello")&lt;/script&gt;',
 			bar: true,
 			lorem: {
-				ipsum: ['&lt;alert&gt;hello&lt;/alert&gt;', '&lt;alert&gt;goodbye&lt;/alert&gt;'],
+				ipsum: ['&lt;script&gt;alert("hello")&lt;/script&gt;', '&lt;script&gt;alert("goodbye")&lt;/script&gt;'],
 				dolor: 42,
 			},
-			ipsum: [{ foo: '&lt;alert&gt;hello&lt;/alert&gt;' }, { bar: '&lt;alert&gt;goodbye&lt;/alert&gt;' }],
+			ipsum: [
+				{ foo: '&lt;script&gt;alert("hello")&lt;/script&gt;' },
+				{ bar: '&lt;script&gt;alert("goodbye")&lt;/script&gt;' },
+			],
 		});
 	});
 });
