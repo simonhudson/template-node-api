@@ -17,7 +17,7 @@ describe('obfuscateObject', () => {
 		};
 	});
 
-	it('should obfuscate string values based on an allow list', () => {
+	it('should obfuscate values based on an allow list', () => {
 		expect(obfuscateObject(testObject, ['foo', 'ipsum'])).toEqual({
 			foo: 'foo-value',
 			bar: '[OBFUSCATED]',
@@ -30,7 +30,7 @@ describe('obfuscateObject', () => {
 		});
 	});
 
-	it('should obfuscate all string values when allow list not provided', () => {
+	it('should obfuscate values when allow list not provided', () => {
 		expect(obfuscateObject(testObject)).toEqual({
 			foo: '[OBFUSCATED]',
 			bar: '[OBFUSCATED]',
@@ -43,7 +43,7 @@ describe('obfuscateObject', () => {
 		});
 	});
 
-	it('should obfuscate all string values with provided replacement', () => {
+	it('should obfuscate values with provided replacement', () => {
 		expect(obfuscateObject(testObject, undefined, 'some-replacement')).toEqual({
 			foo: 'some-replacement',
 			bar: 'some-replacement',
@@ -53,6 +53,18 @@ describe('obfuscateObject', () => {
 				baz: 'some-replacement',
 			},
 			baz: [{ foo: 'some-replacement' }, { bar: 'some-replacement', woof: { foo: 'some-replacement' } }],
+		});
+	});
+	it('should obfuscate values with an allow list and provided replacement', () => {
+		expect(obfuscateObject(testObject, ['bar'], 'xxx')).toEqual({
+			foo: 'xxx',
+			bar: 'true',
+			lorem: {
+				ipsum: 'xxx',
+				dolor: 'xxx',
+				baz: 'xxx',
+			},
+			baz: [{ foo: 'xxx' }, { bar: 'bar-value', woof: { foo: 'xxx' } }],
 		});
 	});
 });
