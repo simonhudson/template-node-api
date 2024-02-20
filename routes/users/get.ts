@@ -11,13 +11,18 @@ const transform = async (data: any) => {
 };
 
 export const get = async (req: Request, res: Response): Promise<void> => {
-	const userSlug = req.params.slug;
 	let query = {};
+	const userSlug = req.params.slug;
 	if (userSlug) {
 		const nameSplit = userSlug.split('-');
 		const firstName = nameSplit[0];
 		const lastName = nameSplit[1];
-		if (firstName && lastName) query = { first_name: firstName, last_name: lastName };
+		if (firstName && lastName) {
+			query = {
+				first_name: { $regex: new RegExp(firstName, 'i') },
+				last_name: { $regex: new RegExp(lastName, 'i') },
+			};
+		}
 	}
 	res.json(
 		await transform(

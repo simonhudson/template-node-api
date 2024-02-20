@@ -1,5 +1,6 @@
 import { COLLECTION_NAME } from './constants';
 import { createError } from '@/utils/createError';
+import { dateOfBirthStringIsValid } from '@/utils/validation/dateOfBirthString';
 import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
 import { httpStatusCodes } from '@/constants/httpStatusCodes';
@@ -11,6 +12,7 @@ const getInvalidFields = (requestBody: Record<string, string>): string[] => {
 	['first_name', 'last_name', 'date_of_birth'].forEach((field): void => {
 		if (!requestBody[field]) invalidFields.push(field);
 	});
+	if (!dateOfBirthStringIsValid(requestBody.date_of_birth)) invalidFields.push('date_of_birth');
 	return invalidFields;
 };
 
