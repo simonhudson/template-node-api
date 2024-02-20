@@ -12,7 +12,9 @@ describe('patch', () => {
 		mockReq = {
 			params: {},
 		} as unknown as Request;
-		mockRes = {} as unknown as Response;
+		mockRes = {
+			json: jest.fn(),
+		} as unknown as Response;
 	});
 
 	afterEach(() => {
@@ -24,6 +26,7 @@ describe('patch', () => {
 		await patch(mockReq, mockRes);
 
 		// Then
+		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledWith({
 			req: mockReq,

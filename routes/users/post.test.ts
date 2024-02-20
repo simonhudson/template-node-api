@@ -25,6 +25,7 @@ describe('post', () => {
 		} as unknown as Request;
 		mockRes = {
 			status: jest.fn(),
+			json: jest.fn(),
 		} as unknown as Response;
 		(createError as jest.Mock).mockReturnValue('create-error-response');
 		(getDuplicateEntries as jest.Mock).mockResolvedValue([]);
@@ -45,6 +46,7 @@ describe('post', () => {
 		// Then
 		expect(mockRes.status).toHaveBeenCalledTimes(1);
 		expect(mockRes.status).toHaveBeenCalledWith(400);
+		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledWith({
 			message: `Invalid field(s)`,
@@ -65,6 +67,7 @@ describe('post', () => {
 		// Then
 		expect(mockRes.status).toHaveBeenCalledTimes(1);
 		expect(mockRes.status).toHaveBeenCalledWith(409);
+		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledWith({
 			message: `Duplicate entry found`,
@@ -82,6 +85,7 @@ describe('post', () => {
 		// Then
 		expect(mockRes.status).not.toHaveBeenCalled();
 		expect(createError).not.toHaveBeenCalled();
+		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledWith({
 			req: {

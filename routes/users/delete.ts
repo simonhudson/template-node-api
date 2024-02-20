@@ -3,5 +3,5 @@ import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 
 export const del = async (req: Request, res: Response): Promise<void> => {
-	makeRequest({ req, res, collectionName: COLLECTION_NAME });
+	res.json(await makeRequest({ req, res, collectionName: COLLECTION_NAME }));
 };

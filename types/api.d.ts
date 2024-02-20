@@ -18,8 +18,10 @@ export type ApiBaseResponse = {
 };
 
 export type ApiErrorResponse = {
-	data?: any;
-	message?: string;
+	error: {
+		data?: any;
+		message?: string;
+	};
 };
 
 export interface ApiSuccessResponse extends ApiBaseResponse {

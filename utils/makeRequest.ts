@@ -22,7 +22,7 @@ export const makeRequest = async ({
 	query,
 	sortBy,
 	sortDirection,
-}: MakeRequestParams): Promise<ApiSuccessResponse> => {
+}: MakeRequestParams): Promise<void> => {
 	const METHOD = req?.method?.toUpperCase();
 
 	if (!validMethods.includes(METHOD)) {
