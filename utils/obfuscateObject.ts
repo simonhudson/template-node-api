@@ -20,7 +20,7 @@ export const obfuscateObject = (
 	replacementValue: string = '[OBFUSCATED]'
 ): BaseObject => {
 	if (process.env.NODE_ENV !== 'production') return obj;
-	const allow = [...DEFAULT_ALLOW_LIST, ...allowList];
+	const allow = Array.from(new Set([...DEFAULT_ALLOW_LIST, ...allowList]));
 	traverse(obj).forEach(function (this: any, item: any) {
 		if (['string'].includes(typeof item) && !allow?.includes(this.key)) this.update(replacementValue);
 	});
