@@ -16,7 +16,7 @@ const getInvalidFields = (requestBody: Record<string, string>): string[] => {
 	return invalidFields;
 };
 
-export const post = async (req: Request, res: Response) => {
+export const post = async (req: Request, res: Response): Promise<any> => {
 	const requestBody = req.body;
 
 	// Check if required fields are present
