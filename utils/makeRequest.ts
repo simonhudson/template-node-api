@@ -8,7 +8,7 @@ import { MongoClient } from 'mongodb';
 import { patch } from '@/methods/patch';
 import { post } from '@/methods/post';
 import mongoClient from '@/utils/mongoClient';
-import type { ApiRequestParams } from '@/types/api';
+import type { ApiRequestParams, ApiSuccessResponse } from '@/types/api';
 import type { Response } from 'express';
 
 interface MakeRequestParams extends ApiRequestParams {
@@ -22,7 +22,7 @@ export const makeRequest = async ({
 	query,
 	sortBy,
 	sortDirection,
-}: MakeRequestParams): Promise<void> => {
+}: MakeRequestParams): Promise<ApiSuccessResponse> => {
 	const METHOD = req?.method?.toUpperCase();
 
 	if (!validMethods.includes(METHOD)) {

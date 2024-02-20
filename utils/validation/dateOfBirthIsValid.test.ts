@@ -1,6 +1,6 @@
-import { dateOfBirthStringIsValid } from './dateOfBirthString';
+import { dateOfBirthIsValid } from './dateOfBirthIsValid';
 
-describe('dateOfBirthStringIsValid', () => {
+describe('dateOfBirthIsValid', () => {
 	[
 		{ value: '2021-01-01', expected: true },
 		{ value: '2021-13-1', expected: false },
@@ -9,7 +9,7 @@ describe('dateOfBirthStringIsValid', () => {
 		{ value: undefined, expected: false },
 	].forEach((scenario) => {
 		it(`should return ${scenario.expected} for ${scenario.value}`, () => {
-			expect(dateOfBirthStringIsValid(scenario.value)).toEqual(scenario.expected);
+			expect(dateOfBirthIsValid(scenario.value)).toEqual(scenario.expected);
 		});
 	});
 });

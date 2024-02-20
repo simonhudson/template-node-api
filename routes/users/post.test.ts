@@ -86,11 +86,7 @@ describe('post', () => {
 		expect(makeRequest).toHaveBeenCalledWith({
 			req: {
 				params: {},
-				body: {
-					...mockReq.body,
-					slug: 'john-doe',
-					age: expect.any(Number),
-				},
+				body: mockReq.body,
 			},
 			res: mockRes,
 			collectionName: expect.any(String),

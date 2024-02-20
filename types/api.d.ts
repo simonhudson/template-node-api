@@ -8,9 +8,21 @@ export type ApiRequestParams = {
 	sortDirection?: 'asc' | 'desc';
 };
 
-export type ApiErrorResponse = {
-	error: {
-		data?: any;
-		message?: string;
+export type ApiBaseResponse = {
+	status: number;
+	metadata: {
+		endpoint: string;
+		method: string;
+		count?: number;
 	};
 };
+
+export type ApiErrorResponse = {
+	data?: any;
+	message?: string;
+};
+
+export interface ApiSuccessResponse extends ApiBaseResponse {
+	data: any[];
+	error?: ApiErrorResponse;
+}

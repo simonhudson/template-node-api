@@ -15,7 +15,6 @@ describe('handleResponse', () => {
 		mockRes = {
 			statusCode: 200,
 			setHeader: jest.fn() as jest.Mock,
-			json: jest.fn() as jest.Mock,
 			status: jest.fn() as jest.Mock,
 		} as unknown as Response;
 		response = { foo: 'response-string' };
@@ -31,12 +30,15 @@ describe('handleResponse', () => {
 		mockRes.statusCode = 400;
 
 		// When
-		handleResponse(mockReq, mockRes, response);
+		const actual = handleResponse(mockReq, mockRes, response);
+		console.log('----------------');
+		console.log(actual);
+		console.log('----------------');
 
 		// Then
 		expect(mockRes.status).toHaveBeenCalledWith(400);
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
-		expect(mockRes.json).toHaveBeenCalledWith({
+		expect(actual).toStrictEqual({
 			status: 400,
 			metadata: { endpoint: 'orginal-url', method: 'foo' },
 			error: { message: 'error-message', data: 'error-data' },
@@ -48,12 +50,12 @@ describe('handleResponse', () => {
 		response = [{ foo: 'bar' }, { bar: 'foo' }];
 
 		// When
-		handleResponse(mockReq, mockRes, response);
+		const actual = handleResponse(mockReq, mockRes, response);
 
 		// Then
 		expect(mockRes.status).toHaveBeenCalledWith(200);
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
-		expect(mockRes.json).toHaveBeenCalledWith({
+		expect(actual).toStrictEqual({
 			status: 200,
 			metadata: { endpoint: 'orginal-url', method: 'foo', count: 2 },
 			data: [{ foo: 'bar' }, { bar: 'foo' }],
@@ -64,11 +66,11 @@ describe('handleResponse', () => {
 		response = [];
 
 		// When
-		handleResponse(mockReq, mockRes, response);
+		const actual = handleResponse(mockReq, mockRes, response);
 
 		// Then
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
-		expect(mockRes.json).toHaveBeenCalledWith({
+		expect(actual).toStrictEqual({
 			status: 200,
 			metadata: { endpoint: 'orginal-url', method: 'foo', count: 0 },
 			data: [],
@@ -76,11 +78,11 @@ describe('handleResponse', () => {
 	});
 	it('should return response without data array', () => {
 		// When
-		handleResponse(mockReq, mockRes, response);
+		const actual = handleResponse(mockReq, mockRes, response);
 
 		// Then
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
-		expect(mockRes.json).toHaveBeenCalledWith({
+		expect(actual).toStrictEqual({
 			status: 200,
 			metadata: { endpoint: 'orginal-url', method: 'foo' },
 			data: { foo: 'response-string' },

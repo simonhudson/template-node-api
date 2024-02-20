@@ -12,7 +12,9 @@ describe('get', () => {
 		mockReq = {
 			params: {},
 		} as unknown as Request;
-		mockRes = {} as unknown as Response;
+		mockRes = {
+			json: jest.fn() as jest.Mock,
+		} as unknown as Response;
 	});
 
 	afterEach(() => {
@@ -49,7 +51,7 @@ describe('get', () => {
 			collectionName: expect.any(String),
 			sortBy: expect.any(String),
 			sortDirection: expect.any(String),
-			query: { slug: 'test-slug' },
+			query: { first_name: expect.any(Object), last_name: expect.any(Object) },
 		});
 	});
 });

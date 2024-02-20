@@ -1,19 +1,8 @@
-import type { ApiErrorResponse } from '@/types/api';
+import type { ApiErrorResponse, ApiSuccessResponse } from '@/types/api';
 import type { DeleteResult, InsertOneResult, UpdateResult, WithId } from 'mongodb';
 import type { Request, Response } from 'express';
 
-type ResponsePayload = {
-	status: number;
-	data?: any;
-	metadata: {
-		endpoint: string;
-		method: string;
-		count?: number;
-	};
-	error?: any;
-};
-
-export const handleResponse = async (
+export const handleResponse = (
 	req: Request,
 	res: Response,
 	response:
@@ -23,8 +12,8 @@ export const handleResponse = async (
 		| DeleteResult
 		| ApiErrorResponse
 		| unknown
-): Promise<any> => {
-	const responsePayload: ResponsePayload = {
+): ApiSuccessResponse => {
+	const responsePayload: ApiSuccessResponse = {
 		status: res.statusCode,
 		metadata: {
 			endpoint: req.originalUrl,
@@ -36,7 +25,7 @@ export const handleResponse = async (
 	if (response && typeof response === 'object' && 'error' in response && response.error) {
 		responsePayload.error = response.error;
 	} else {
-		responsePayload.data = response;
+		responsePayload.data = response as any[];
 	}
 
 	if (Array.isArray(response)) responsePayload.metadata.count = response.length;
