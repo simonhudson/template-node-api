@@ -13,7 +13,7 @@ type ResponsePayload = {
 	error?: any;
 };
 
-export const handleResponse = (
+export const handleResponse = async (
 	req: Request,
 	res: Response,
 	response:
@@ -23,7 +23,7 @@ export const handleResponse = (
 		| DeleteResult
 		| ApiErrorResponse
 		| unknown
-): void => {
+): Promise<any> => {
 	const responsePayload: ResponsePayload = {
 		status: res.statusCode,
 		metadata: {
@@ -42,5 +42,5 @@ export const handleResponse = (
 	if (Array.isArray(response)) responsePayload.metadata.count = response.length;
 	res.status(res.statusCode);
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.json(responsePayload);
+	return responsePayload;
 };

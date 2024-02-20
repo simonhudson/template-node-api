@@ -30,7 +30,7 @@ export const makeRequest = async ({
 		const errorResponse = createError({
 			message: `Invalid method (${METHOD}). Valid methods are ${validMethods.join(', ')}`,
 		});
-		handleResponse(req, res, errorResponse);
+		return handleResponse(req, res, errorResponse);
 	} else {
 		const client: MongoClient = mongoClient;
 		const db = client.db(process.env.DB_NAME);
@@ -51,6 +51,6 @@ export const makeRequest = async ({
 				response = await del({ req, collectionName, db });
 				break;
 		}
-		handleResponse(req, res, response);
+		return handleResponse(req, res, response);
 	}
 };
