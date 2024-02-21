@@ -1,18 +1,7 @@
 import traverse from 'traverse';
 import type { BaseObject } from '@/types/base';
 
-const DEFAULT_ALLOW_LIST = [
-	'_id',
-	'count',
-	'data',
-	'data',
-	'endpoint',
-	'error',
-	'message',
-	'metadata',
-	'method',
-	'status',
-];
+const DEFAULT_ALLOW_LIST = ['_id', 'count', 'data', 'endpoint', 'error', 'message', 'metadata', 'method', 'status'];
 
 export const obfuscateObject = (
 	obj: BaseObject,

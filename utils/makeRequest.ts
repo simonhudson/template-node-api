@@ -8,7 +8,7 @@ import { MongoClient } from 'mongodb';
 import { patch } from '@/methods/patch';
 import { post } from '@/methods/post';
 import mongoClient from '@/utils/mongoClient';
-import type { ApiRequestParams, ApiSuccessResponse } from '@/types/api';
+import type { ApiRequestParams } from '@/types/api';
 import type { Response } from 'express';
 
 interface MakeRequestParams extends ApiRequestParams {

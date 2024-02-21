@@ -8,6 +8,15 @@ describe('obfuscateObject', () => {
 
 	beforeEach(() => {
 		testObject = {
+			_id: 'id-value',
+			count: 123,
+			data: 'data-value',
+			endpoint: 'endpoint-value',
+			error: 'error-value',
+			message: 'message-value',
+			metadata: 'metadata-value',
+			method: 'method-value',
+			status: 'status-value',
 			foo: 'foo-value',
 			bar: 'true',
 			lorem: {
@@ -34,6 +43,15 @@ describe('obfuscateObject', () => {
 
 	it('should obfuscate values based on an allow list', () => {
 		expect(obfuscateObject(testObject, ['foo', 'ipsum'])).toStrictEqual({
+			_id: 'id-value',
+			count: 123,
+			data: 'data-value',
+			endpoint: 'endpoint-value',
+			error: 'error-value',
+			message: 'message-value',
+			metadata: 'metadata-value',
+			method: 'method-value',
+			status: 'status-value',
 			foo: 'foo-value',
 			bar: '[OBFUSCATED]',
 			lorem: {
@@ -47,6 +65,15 @@ describe('obfuscateObject', () => {
 
 	it('should obfuscate values when allow list not provided', () => {
 		expect(obfuscateObject(testObject)).toStrictEqual({
+			_id: 'id-value',
+			count: 123,
+			data: 'data-value',
+			endpoint: 'endpoint-value',
+			error: 'error-value',
+			message: 'message-value',
+			metadata: 'metadata-value',
+			method: 'method-value',
+			status: 'status-value',
 			foo: '[OBFUSCATED]',
 			bar: '[OBFUSCATED]',
 			lorem: {
@@ -60,6 +87,15 @@ describe('obfuscateObject', () => {
 
 	it('should obfuscate values with provided replacement', () => {
 		expect(obfuscateObject(testObject, undefined, 'some-replacement')).toStrictEqual({
+			_id: 'id-value',
+			count: 123,
+			data: 'data-value',
+			endpoint: 'endpoint-value',
+			error: 'error-value',
+			message: 'message-value',
+			metadata: 'metadata-value',
+			method: 'method-value',
+			status: 'status-value',
 			foo: 'some-replacement',
 			bar: 'some-replacement',
 			lorem: {
@@ -72,6 +108,15 @@ describe('obfuscateObject', () => {
 	});
 	it('should obfuscate values with an allow list and provided replacement', () => {
 		expect(obfuscateObject(testObject, ['bar'], 'xxx')).toStrictEqual({
+			_id: 'id-value',
+			count: 123,
+			data: 'data-value',
+			endpoint: 'endpoint-value',
+			error: 'error-value',
+			message: 'message-value',
+			metadata: 'metadata-value',
+			method: 'method-value',
+			status: 'status-value',
 			foo: 'xxx',
 			bar: 'true',
 			lorem: {
