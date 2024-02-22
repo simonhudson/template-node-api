@@ -22,7 +22,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "outDir": "output"
+    "outDir": "vercel/output"
   },
   "include": [
     "./src/index.ts",
