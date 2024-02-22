@@ -5,9 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "build": "npm run clean && npm run tsc",
-    "clean": "rimraf dist && mkdir dist",
-    "tsc": "npx tsc --project tsconfig.json --outDir dist && tsc-alias",
+    "build": "npm run tsc",
+    "tsc": "npx tsc --project tsconfig.json --outDir .output && tsc-alias",
     "test": "jest --colors --forceExit",
     "test:coverage": "jest --coverage"
   },
