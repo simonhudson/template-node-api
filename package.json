@@ -5,9 +5,17 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node-dev -r tsconfig-paths/register ./index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
     "test": "jest --colors --forceExit",
     "test:coverage": "jest --coverage"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
