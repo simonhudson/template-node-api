@@ -2,20 +2,13 @@
   "name": "template-node-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node-dev -r tsconfig-paths/register ./index.ts",
-    "build": "rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
+    "start": "ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "build": "npx tsc --project tsconfig.json --outDir dist",
     "test": "jest --colors --forceExit",
     "test:coverage": "jest --coverage"
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

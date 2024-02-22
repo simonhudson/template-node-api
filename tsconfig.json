@@ -14,23 +14,21 @@
     ],
     "module": "CommonJS",
     "moduleResolution": "node",
-    "noEmit": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "*": ["node_modules/*"],
+      "@/*": ["src/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
+    "outDir": "dist"
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "./src/index.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.test.ts"
   ]
 }
