@@ -30,9 +30,9 @@ jobs:
             # Set outputs
             - name: Set outputs
               id: vars
-              run: echo "commit_sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+              run: echo "commit_sha_short=$(git rev-parse --short HEAD) release_branch_name=release" >> $GITHUB_OUTPUT
             - name: Check outputs
-              run: echo ${{ steps.vars.outputs.commit_sha_short }}
+              run: echo ${{ steps.vars.outputs.release_branch_name }}
 
             # Install dependencies
             - run: npm ci
