@@ -28,9 +28,9 @@ jobs:
             # Set outputs
             - name: Set outputs
               id: vars
-              run: echo "release_branch_name=release-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+              run: echo "commit_sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
             - name: Check outputs
-              run: echo ${{ steps.vars.outputs.release_branch_name }}
+              run: echo ${{ steps.vars.outputs.commit_sha_short }}
 
             # Install dependencies
             - run: npm ci
@@ -48,8 +48,11 @@ jobs:
             - run: git push
 
             # Create a new release branch off main
-            - run: git checkout -b ${{ steps.vars.outputs.release_branch_name }}
-            - run: git push origin ${{ steps.vars.outputs.release_branch_name }}
+            - run: git checkout -b release/${{ steps.vars.outputs.commit_sha_short }}
+            - run: git push origin release/${{ steps.vars.outputs.commit_sha_short }}
+
+            ## Create release
+            - run: git release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
 
             # Remove /dist from main branch
             - run: git checkout main
