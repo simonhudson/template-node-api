@@ -9,7 +9,7 @@ on:
         types:
             - closed
 env:
-    GH_TOKEN: ${{ github.token }}
+    GH_TOKEN: ${{ github.token}}
 
 jobs:
     build:
@@ -39,7 +39,7 @@ jobs:
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
             # Create release branch
-            - run: git checkout -b release
+            - run: git checkout -b release/${{ steps.vars.outputs.commit_sha_short }}
 
             # Install dependencies
             - run: npm ci
@@ -50,18 +50,13 @@ jobs:
             # Add /dist to release branch
             - run: git add dist
 
-            # Remove files/folders we don't want in the build
-            - run: git rm -r .github .vscode postman src test .babelrc .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts tsconfig.json
-
             # Commit changes
-            - run: git commit -m "Configure for build and release ${{ steps.vars.outputs.commit_sha_short }}"
+            - run: git commit -m "Build release/${{ steps.vars.outputs.commit_sha_short }}"
 
             # Push release branch
-            - run: git push --set-upstream origin release
+            - run: git push --set-upstream origin release/${{ steps.vars.outputs.commit_sha_short }}
 
             ## Create release
-            - run: gh release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
-
-            # Delete release branch
-            - run: git checkout main
-            - run: git push origin --delete release
+            - run: gh release create ${{ steps.vars.outputs.commit_sha_short }}
+                  --title ${{ steps.vars.outputs.commit_sha_short }}
+                  --notes "Pull Request \#${{ github.event.number }}\n\n$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/release/${{ steps.vars.outputs.commit_sha_short }}"
