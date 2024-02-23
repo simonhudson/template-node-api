@@ -47,10 +47,9 @@ jobs:
             # Build
             - run: npm run build --if-present
 
-            # Add and Push /dist to main branch
+            # Add /dist to temporary branch
             - run: git add dist
             - run: git commit -m "build dist"
-            - run: git push
 
             # Push temporary branch
             - run: git push --set-upstream origin release
