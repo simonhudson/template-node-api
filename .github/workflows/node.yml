@@ -54,10 +54,14 @@ jobs:
             - run: git rm -r .github .vscode postman src test .babelrc .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts tsconfig.json
 
             # Commit changes
-            - run: git commit -m "Configure for build and release"
+            - run: git commit -m "Configure for build and release ${{ steps.vars.outputs.commit_sha_short }}"
 
             # Push release branch
             - run: git push --set-upstream origin release
 
             ## Create release
             - run: gh release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
+
+            # Delete release branch
+            - run: git checkout main
+            - run: git push origin --delete release
