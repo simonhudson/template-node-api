@@ -52,7 +52,7 @@ jobs:
             - run: git push origin release/${{ steps.vars.outputs.commit_sha_short }}
 
             ## Create release
-            - run: git release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
+            - run: gh release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
 
             # Remove /dist from main branch
             - run: git checkout main
