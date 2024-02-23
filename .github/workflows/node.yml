@@ -51,7 +51,7 @@ jobs:
             - run: git add dist
 
             # Remove files/folders we don't want in the build
-            - run: git rm -r .github .vscode postman src test .babelrc.js .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts package-lock.json package.json tsconfig.json
+            - run: git rm -r .github .vscode postman src test .babelrc .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts package-lock.json package.json tsconfig.json
 
             # Commit changes
             - run: git commit -m "Configure for build and release"
