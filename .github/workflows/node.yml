@@ -8,6 +8,8 @@ on:
         branches: 'main'
         types:
             - closed
+env:
+    GH_TOKEN: ${{ github.token }}
 
 jobs:
     build:
