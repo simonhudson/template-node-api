@@ -38,7 +38,11 @@ jobs:
             - run: git config user.name "${{ github.actor }}"
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
+<<<<<<< HEAD
             # Create release branch
+=======
+            # Create temporary branch
+>>>>>>> main
             - run: git checkout -b release
 
             # Install dependencies
