@@ -38,8 +38,8 @@ jobs:
             - run: npm ci
 
             # Provide GH creds
-            - run: git config user.email "hellosimonhudson@gmail.com"
-            - run: git config user.name "Simon Hudson"
+            - run: git config user.name "${{ github.actor }}"
+            - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
             # Create temporary branch
             - run: git checkout -b release
