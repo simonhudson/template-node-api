@@ -26,6 +26,8 @@ jobs:
                   cache: 'npm'
             - run: npm ci
             - run: npm run build --if-present
+            - run: git config user.email "hellosimonhudson@gmail.com"
+            - run: git config user.name "Simon Hudson"
             - run: git add dist
             - run: git commit -m "build dist"
             - run: git push
