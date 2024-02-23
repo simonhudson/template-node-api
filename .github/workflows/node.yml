@@ -56,9 +56,6 @@ jobs:
             # Commit changes
             - run: git commit -m "Configure for build and release"
 
-            # Get latest release branch
-            - run: git pull origin release
-
             # Push release branch
             - run: git push --set-upstream origin release
 
