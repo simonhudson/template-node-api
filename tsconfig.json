@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -16,7 +16,7 @@
     "moduleResolution": "node",
     "paths": {
       "*": ["node_modules/*"],
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -25,7 +25,7 @@
     "outDir": "dist"
   },
   "include": [
-    "./src/index.ts",
+    "./src/**/*",
   ],
   "exclude": [
     "node_modules",
