@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
     pull_request:
-        branches: 'release'
+        branches: 'main'
         types:
             - closed
 
@@ -39,7 +39,7 @@ jobs:
             - run: git commit -m "build dist"
             - run: git push
 
-            # Create a new release branch
+            # Create a new release branch off main
             - run: git checkout -b release-${{ github.head_ref }}.${{ github.sha }}
             - run: git push origin release-${{ github.head_ref }}.${{ github.sha }}
 
