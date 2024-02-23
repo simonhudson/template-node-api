@@ -24,6 +24,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
+
+            # Set outputs
+            - name: Set outputs
+              id: vars
+              run: echo "release_branch_name=release-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+            - name: Check outputs
+              run: echo ${{ steps.vars.outputs.release_branch_name }}
+
             # Install dependencies
             - run: npm ci
 
@@ -40,8 +48,8 @@ jobs:
             - run: git push
 
             # Create a new release branch off main
-            - run: git checkout -b release-${{ github.head_ref }}.${{ github.sha }}
-            - run: git push origin release-${{ github.head_ref }}.${{ github.sha }}
+            - run: git checkout -b ${{ steps.vars.outputs.release_branch_name }}
+            - run: git push origin ${{ steps.vars.outputs.release_branch_name }}
 
             # Remove /dist from main branch
             - run: git checkout main
