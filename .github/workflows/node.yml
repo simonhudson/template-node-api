@@ -42,7 +42,7 @@ jobs:
             - run: git config user.name "Simon Hudson"
 
             # Create temporary branch
-            - run: git checkout -b ${{ steps.vars.outputs.release_branch_name }}
+            - run: git checkout -b release
 
             # Build
             - run: npm run build --if-present
@@ -53,11 +53,11 @@ jobs:
             - run: git push
 
             # Push temporary branch
-            - run: git push origin ${{ steps.vars.outputs.release_branch_name }}
+            - run: git push origin release
 
             ## Create release
             - run: gh release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
 
             # Delete temporary branch
             - run: git checkout main
-            - run: git branch -d ${{ steps.vars.outputs.release_branch_name }}
+            - run: git branch -d release
