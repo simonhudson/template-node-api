@@ -38,7 +38,7 @@ jobs:
             - run: git config user.name "${{ github.actor }}"
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
-            # Create temporary branch
+            # Create release branch
             - run: git checkout -b release
 
             # Install dependencies
@@ -47,7 +47,7 @@ jobs:
             # Build
             - run: npm run build --if-present
 
-            # Add /dist to temporary branch
+            # Add /dist to release branch
             - run: git add dist
 
             # Remove files/folders we don't want in the build
@@ -56,7 +56,10 @@ jobs:
             # Commit changes
             - run: git commit -m "Configure for build and release"
 
-            # Push temporary branch
+            # Get latest release branch
+            - run: git pull origin release
+
+            # Push release branch
             - run: git push --set-upstream origin release
 
             ## Create release
