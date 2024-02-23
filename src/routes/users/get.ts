@@ -1,6 +1,5 @@
 import { COLLECTION_NAME } from './constants';
 import { makeRequest } from '@/utils/makeRequest';
-import { obfuscateObject } from '@/utils/obfuscateObject';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 
@@ -8,7 +7,7 @@ const transform = async (data: any) => {
 	data?.data.forEach((item: any) => {
 		item.age = dayjs().diff(dayjs(item.date_of_birth), 'year');
 	});
-	return obfuscateObject(data);
+	return data;
 };
 
 export const get = async (req: Request, res: Response): Promise<void> => {
