@@ -38,9 +38,6 @@ jobs:
             - run: git config user.name "${{ github.actor }}"
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
-            # Delete existing temporary branch
-            - run: git branch -d release
-
             # Create temporary branch
             - run: git checkout -b release
 
@@ -52,7 +49,12 @@ jobs:
 
             # Add /dist to temporary branch
             - run: git add dist
-            - run: git commit -m "build dist"
+
+            # Remove files/folders we don't want in the build
+            - run: rimraf .github .vscode postman src test .babelrc.js .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts package-lock.json package.json tsconfig.json
+
+            # Commit changes
+            - run: git commit -m "Configure for build and release"
 
             # Push temporary branch
             - run: git push --set-upstream origin release
