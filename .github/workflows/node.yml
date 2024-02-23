@@ -53,7 +53,7 @@ jobs:
             - run: git push
 
             # Push temporary branch
-            - run: git push origin release
+            - run: git push --set-upstream origin release
 
             ## Create release
             - run: gh release create ${{ steps.vars.outputs.commit_sha_short }} --title ${{ steps.vars.outputs.commit_sha_short }} --notes "Pull Request \#${{ github.event.number }}"
