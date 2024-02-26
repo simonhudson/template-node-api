@@ -3,12 +3,8 @@
 
 name: Unit tests
 on:
-    push:
-        branches: '!main'
     pull_request:
         branches: 'main'
-        types:
-            - opened
 
 env:
     GH_TOKEN: ${{ github.token}}
