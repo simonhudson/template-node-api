@@ -31,7 +31,7 @@ jobs:
 
             # Create .env file
             - name: Create .env file
-              run: echo "DB_URI=https://foodb.com" > .env
+              run: echo "DB_URI=mongodb+srv://foo:bar@cluster0.gvilr.mongodb.net" > .env
 
             # Run tests
             - run: npm run test
