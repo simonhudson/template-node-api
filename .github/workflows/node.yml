@@ -61,5 +61,4 @@ jobs:
 
             ## Create release
             - run: gh release create ${{ steps.vars.outputs.commit_sha_short }}
-                  --title ${{ steps.vars.outputs.commit_sha_short }}
                   --generate-notes
