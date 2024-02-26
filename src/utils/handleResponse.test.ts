@@ -31,9 +31,6 @@ describe('handleResponse', () => {
 
 		// When
 		const actual = handleResponse(mockReq, mockRes, response);
-		console.log('----------------');
-		console.log(actual);
-		console.log('----------------');
 
 		// Then
 		expect(mockRes.status).toHaveBeenCalledWith(400);
