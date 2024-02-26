@@ -3,7 +3,7 @@ import * as constants from './constants';
 describe('constants', () => {
 	it('should return expected values', () => {
 		expect(constants).toEqual({
-			COLLECTION_NAME: 'usersx',
+			COLLECTION_NAME: 'users',
 		});
 	});
 });

@@ -45,7 +45,7 @@ jobs:
             - run: npm ci
 
             # Run tests
-            - run: npm run test:coverage
+            - run: npm run test
 
             # Build
             - run: npm run build --if-present
