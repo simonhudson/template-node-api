@@ -44,6 +44,9 @@ jobs:
             # Install dependencies
             - run: npm ci
 
+            # Run tests
+            - run: npm run test:coverage
+
             # Build
             - run: npm run build --if-present
 
@@ -57,8 +60,5 @@ jobs:
             - run: git push --set-upstream origin release/${{ steps.vars.outputs.commit_sha_short }}
 
             ## Create release
-            - run:
-                  gh release create ${{ steps.vars.outputs.commit_sha_short }}
-                  --title ${{ steps.vars.outputs.commit_sha_short }}
+            - run: gh release create ${{ steps.vars.outputs.commit_sha_short }}
                   --generate-notes
-                  #--notes "Pull Request \#${{ github.event.number }}\nBranch $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/release/${{ steps.vars.outputs.commit_sha_short }}"
