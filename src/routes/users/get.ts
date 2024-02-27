@@ -3,7 +3,7 @@ import { makeRequest } from '@/utils/makeRequest';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 
-const transform = async (data: any) => {
+const transform = (data: any) => {
 	data?.data.forEach((item: any) => {
 		item.age = dayjs().diff(dayjs(item.date_of_birth), 'year');
 	});
@@ -25,7 +25,7 @@ export const get = async (req: Request, res: Response): Promise<void> => {
 		}
 	}
 	res.json(
-		await transform(
+		transform(
 			await makeRequest({
 				req,
 				res,
