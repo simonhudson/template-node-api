@@ -1,10 +1,9 @@
 import { createError } from '@/utils/createError';
 import { handleResponse } from '@/utils/handleResponse';
 import { httpStatusCodes } from '@/constants/httpStatusCodes';
-import { OptionalId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/utils/preparePayloadForInsertion';
 import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
-import type { Db, InsertOneResult } from 'mongodb';
+import type { Db, InsertOneResult, OptionalId } from 'mongodb';
 import type { Response } from 'express';
 
 export interface ApiPostParams extends ApiRequestParams {

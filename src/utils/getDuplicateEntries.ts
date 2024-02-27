@@ -1,7 +1,6 @@
 import mongoClient from '@/utils/mongoClient';
 import type { BaseObject } from '@/types/base';
-import type { MongoClient } from 'mongodb';
-import type { WithId } from 'mongodb';
+import type { WithId, MongoClient } from 'mongodb';
 
 export const getDuplicateEntries = async (
 	collectionName: string,
