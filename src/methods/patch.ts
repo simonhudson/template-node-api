@@ -1,7 +1,8 @@
 import { createError } from '@/utils/createError';
+import { ObjectId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/utils/preparePayloadForInsertion';
 import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
-import { Db, ObjectId, UpdateResult } from 'mongodb';
+import type { Db, UpdateResult } from 'mongodb';
 export interface ApiPatchParams extends ApiRequestParams {
 	db: Db;
 }
@@ -12,7 +13,7 @@ export const patch = async ({
 	db,
 }: ApiPatchParams): Promise<UpdateResult<Document> | ApiErrorResponse> => {
 	const requestBody = req.body;
-	const query = { _id: new ObjectId(requestBody._id) };
+	const query = { _id: ObjectId.createFromHexString(requestBody._id.toString()) };
 
 	delete requestBody._id;
 
