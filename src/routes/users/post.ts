@@ -9,10 +9,10 @@ import type { Request, Response } from 'express';
 
 const getInvalidFields = (requestBody: Record<string, string>): string[] => {
 	const invalidFields: string[] = [];
-	['first_name', 'last_name'].forEach((field): void => {
+	['firstName', 'lastName'].forEach((field): void => {
 		if (!requestBody[field]) invalidFields.push(field);
 	});
-	if (!dateOfBirthIsValid(requestBody.date_of_birth)) invalidFields.push('date_of_birth');
+	if (!dateOfBirthIsValid(requestBody.dateOfBirth)) invalidFields.push('dateOfBirth');
 	return invalidFields;
 };
 

@@ -32,7 +32,7 @@ describe('patch', () => {
 			{
 				$set: {
 					foo: 'bar',
-					updated_at: expect.any(Date),
+					updatedAt: expect.any(Date),
 				},
 			}
 		);

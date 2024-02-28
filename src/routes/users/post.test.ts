@@ -18,9 +18,9 @@ describe('post', () => {
 		mockReq = {
 			params: {},
 			body: {
-				first_name: 'John',
-				last_name: 'Doe',
-				date_of_birth: '1990-01-01',
+				firstName: 'John',
+				lastName: 'Doe',
+				dateOfBirth: '1990-01-01',
 			},
 		} as unknown as Request;
 		mockRes = {
@@ -37,8 +37,8 @@ describe('post', () => {
 
 	it('should return 400 if required fields are missing', async () => {
 		// Given
-		delete mockReq.body.first_name;
-		delete mockReq.body.date_of_birth;
+		delete mockReq.body.firstName;
+		delete mockReq.body.dateOfBirth;
 
 		// When
 		await post(mockReq, mockRes);
@@ -50,7 +50,7 @@ describe('post', () => {
 		expect(createError).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledWith({
 			message: `Invalid field(s)`,
-			data: ['first_name', 'date_of_birth'],
+			data: ['firstName', 'dateOfBirth'],
 		});
 		expect(handleResponse).toHaveBeenCalledTimes(1);
 		expect(handleResponse).toHaveBeenCalledWith(mockReq, mockRes, 'create-error-response');

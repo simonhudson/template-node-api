@@ -24,8 +24,8 @@ export const post = async ({
 		return handleResponse(req, res, createError({ message: 'No request body provided' }));
 	}
 
-	requestBody.created_at = new Date();
-	requestBody.updated_at = requestBody.created_at;
+	requestBody.createdAt = new Date();
+	requestBody.updatedAt = requestBody.createdAt;
 
 	try {
 		const response = await db

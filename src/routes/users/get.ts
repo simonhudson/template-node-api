@@ -1,11 +1,14 @@
 import { COLLECTION_NAME } from './constants';
 import { makeRequest } from '@/utils/makeRequest';
+import { slugify } from '@/utils/slugify';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
+import type { User } from './users';
 
-const transform = (data: any) => {
+const transform = (data: any): User[] => {
 	data?.data.forEach((item: any) => {
-		item.age = dayjs().diff(dayjs(item.date_of_birth), 'year');
+		item.age = dayjs().diff(dayjs(item.dateOfBirth), 'year');
+		item.slug = slugify(`${item.firstName} ${item.lastName}`);
 	});
 	return data;
 };
@@ -19,8 +22,8 @@ export const get = async (req: Request, res: Response): Promise<void> => {
 		const lastName = nameSplit[1];
 		if (firstName && lastName) {
 			query = {
-				first_name: { $regex: new RegExp(firstName, 'i') },
-				last_name: { $regex: new RegExp(lastName, 'i') },
+				firstName: { $regex: new RegExp(firstName, 'i') },
+				lastName: { $regex: new RegExp(lastName, 'i') },
 			};
 		}
 	}
@@ -30,7 +33,7 @@ export const get = async (req: Request, res: Response): Promise<void> => {
 				req,
 				res,
 				collectionName: COLLECTION_NAME,
-				sortBy: 'last_name',
+				sortBy: 'lastName',
 				sortDirection: 'asc',
 				query,
 			})

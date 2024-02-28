@@ -17,7 +17,7 @@ export const patch = async ({
 
 	delete requestBody._id;
 
-	requestBody.updated_at = new Date();
+	requestBody.updatedAt = new Date();
 
 	const payload = {
 		$set: preparePayloadForInsertion(requestBody),

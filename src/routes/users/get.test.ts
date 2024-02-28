@@ -51,7 +51,7 @@ describe('get', () => {
 			collectionName: expect.any(String),
 			sortBy: expect.any(String),
 			sortDirection: expect.any(String),
-			query: { first_name: expect.any(Object), last_name: expect.any(Object) },
+			query: { firstName: expect.any(Object), lastName: expect.any(Object) },
 		});
 	});
 });
