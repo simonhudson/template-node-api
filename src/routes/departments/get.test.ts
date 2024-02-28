@@ -31,8 +31,8 @@ describe('get', () => {
 			req: mockReq,
 			res: mockRes,
 			collectionName: expect.any(String),
-			sortBy: expect.any(String),
-			sortDirection: expect.any(String),
+			sortBy: 'name',
+			sortDirection: 'asc',
 			query: {},
 		});
 	});
@@ -49,9 +49,9 @@ describe('get', () => {
 			req: mockReq,
 			res: mockRes,
 			collectionName: expect.any(String),
-			sortBy: expect.any(String),
-			sortDirection: expect.any(String),
-			query: { firstName: expect.any(Object), lastName: expect.any(Object) },
+			sortBy: 'name',
+			sortDirection: 'asc',
+			query: { name: expect.any(Object) },
 		});
 	});
 });

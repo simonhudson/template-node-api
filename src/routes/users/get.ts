@@ -5,12 +5,10 @@ import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 import type { User } from './types';
 
-const transform = (data: any, departments: any): User[] => {
+const transform = (data: any): User[] => {
 	data?.data.forEach((item: any) => {
-		item.department = departments.find((department: any) => department._id.toString() === item.departmentId).name;
 		item.age = dayjs().diff(dayjs(item.dateOfBirth), 'year');
 		item.slug = slugify(`${item.firstName} ${item.lastName}`);
-		delete item.departmentId;
 	});
 	return data;
 };
@@ -30,8 +28,6 @@ export const get = async (req: Request, res: Response): Promise<void> => {
 		}
 	}
 
-	const departmentsData = await makeRequest({ req, res, collectionName: 'departments' });
-
 	res.json(
 		transform(
 			await makeRequest({
@@ -41,8 +37,7 @@ export const get = async (req: Request, res: Response): Promise<void> => {
 				sortBy: 'lastName',
 				sortDirection: 'asc',
 				query,
-			}),
-			departmentsData.data
+			})
 		)
 	);
 };
