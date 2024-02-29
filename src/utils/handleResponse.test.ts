@@ -37,7 +37,7 @@ describe('handleResponse', () => {
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(actual).toStrictEqual({
 			status: 400,
-			metadata: { endpoint: 'orginal-url', method: 'foo' },
+			metadata: { endpoint: 'orginal-url', method: 'foo', commitSha: expect.any(String) },
 			error: { message: 'error-message', data: 'error-data' },
 			data: [],
 		});
@@ -54,7 +54,7 @@ describe('handleResponse', () => {
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(actual).toStrictEqual({
 			status: 200,
-			metadata: { endpoint: 'orginal-url', method: 'foo', count: 2 },
+			metadata: { endpoint: 'orginal-url', method: 'foo', count: 2, commitSha: expect.any(String) },
 			data: [{ foo: 'bar' }, { bar: 'foo' }],
 		});
 	});
@@ -69,7 +69,7 @@ describe('handleResponse', () => {
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(actual).toStrictEqual({
 			status: 200,
-			metadata: { endpoint: 'orginal-url', method: 'foo', count: 0 },
+			metadata: { endpoint: 'orginal-url', method: 'foo', count: 0, commitSha: expect.any(String) },
 			data: [],
 		});
 	});
@@ -81,7 +81,7 @@ describe('handleResponse', () => {
 		expect(mockRes.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
 		expect(actual).toStrictEqual({
 			status: 200,
-			metadata: { endpoint: 'orginal-url', method: 'foo' },
+			metadata: { endpoint: 'orginal-url', method: 'foo', commitSha: expect.any(String) },
 			data: { foo: 'response-string' },
 		});
 	});
