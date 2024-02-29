@@ -54,7 +54,7 @@ jobs:
             - run: git add dist
 
             # Delete obsolete files/dirs
-            - run: git rm -r .github .vscode postman src swagger test .babelrc .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts package-lock.json package.json tsconfig.json
+            - run: git rm -r .github .vscode postman src swagger test .babelrc .env.example .eslintrc.json .gitignore .prettierrc jest.config.ts tsconfig.json
 
             # Commit changes
             - run: git commit -m "Build release ${{ steps.vars.outputs.commit_sha_short }}"
