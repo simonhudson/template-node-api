@@ -13,11 +13,14 @@ export const handleResponse = (
 		| ApiErrorResponse
 		| unknown
 ): ApiSuccessResponse => {
+	const commitSha = require('child_process').execSync('git rev-parse --short HEAD').toString().trim();
+
 	const responsePayload: ApiSuccessResponse = {
 		status: res.statusCode,
 		metadata: {
 			endpoint: req.originalUrl,
 			method: req.method,
+			commitSha,
 		},
 		data: [],
 	};
