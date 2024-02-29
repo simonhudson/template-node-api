@@ -55,7 +55,7 @@ jobs:
 
             # Create env file
             - run: git rm -r --ignore-unmatch .env
-            - run: echo "COMMIT_SHA_SHORT=$(git rev-parse --short HEAD)" > .env
+            - run: echo "COMMIT_SHA_SHORT=${{ steps.vars.outputs.commit_sha_short }}" > .env
             - run: git add -f .env
 
             # Delete obsolete files/dirs
