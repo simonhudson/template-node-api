@@ -35,7 +35,7 @@ jobs:
               run: echo ${{ steps.vars.outputs.commit_sha_short }}
             - name: Set env
               run: echo "COMMIT_SHA_SHORT=$(git rev-parse --short HEAD)" > .env
-            - run: git add .env
+            - run: git add -f .env
 
             # Provide GH creds
             - run: git config user.name "${{ github.actor }}"
