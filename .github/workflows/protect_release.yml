@@ -2,13 +2,16 @@ name: 'Protect Release branch'
 
 on:
     pull_request:
+        branches:
+            - release
+        types:
+            - opened
 
 jobs:
     check_branch:
         runs-on: ubuntu-latest
         steps:
             - name: Protect Release branch
-              if: github.base_ref == 'release'
               run: |
                   echo "ERROR: You cannot merge into release branch directly. Please create a pull request from your feature branch to the main branch. Once merged, it will then merge to the release branch"
                   exit 1
