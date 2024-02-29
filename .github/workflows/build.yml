@@ -44,9 +44,6 @@ jobs:
             # Checkout release branch
             - run: git checkout release
 
-            # Delete existing dist dir
-            - run: git rm -r dist
-
             # Install dependencies
             - run: npm ci
 
