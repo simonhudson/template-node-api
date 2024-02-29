@@ -1,10 +1,9 @@
 import { createError } from '@/utils/createError';
 import { handleResponse } from '@/utils/handleResponse';
 import { httpStatusCodes } from '@/constants/httpStatusCodes';
-import { OptionalId } from 'mongodb';
 import { preparePayloadForInsertion } from '@/utils/preparePayloadForInsertion';
 import type { ApiErrorResponse, ApiRequestParams } from '@/types/api';
-import type { Db, InsertOneResult } from 'mongodb';
+import type { Db, InsertOneResult, OptionalId } from 'mongodb';
 import type { Response } from 'express';
 
 export interface ApiPostParams extends ApiRequestParams {
@@ -25,8 +24,8 @@ export const post = async ({
 		return handleResponse(req, res, createError({ message: 'No request body provided' }));
 	}
 
-	requestBody.created_at = new Date();
-	requestBody.updated_at = requestBody.created_at;
+	requestBody.createdAt = new Date();
+	requestBody.updatedAt = requestBody.createdAt;
 
 	try {
 		const response = await db

@@ -2,13 +2,10 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Unit tests
-
 on:
     pull_request:
         branches: 'main'
-        types:
-            - opened
-            - edited
+
 env:
     GH_TOKEN: ${{ github.token}}
 
@@ -33,7 +30,7 @@ jobs:
 
             # Create .env file
             - name: Create .env file
-              run: echo "DB_URI=https://foodb.com" > .env
+              run: echo "DB_URI=mongodb+srv://foo:bar@cluster0.gvilr.mongodb.net" > .env
 
             # Run tests
             - run: npm run test

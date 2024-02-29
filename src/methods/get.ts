@@ -14,7 +14,7 @@ export const get = async ({
 	sortBy,
 	sortDirection,
 }: ApiGetParams): Promise<WithId<any>[] | ApiErrorResponse> => {
-	let queryObj = query || {};
+	let queryObj = query ?? {};
 	let sortQuery = {};
 	if (sortBy) sortQuery = { [sortBy]: sortDirection === 'asc' ? 1 : -1 };
 

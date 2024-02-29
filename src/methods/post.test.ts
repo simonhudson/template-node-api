@@ -55,8 +55,8 @@ describe('post', () => {
 		expect(mockDb.collection).toHaveBeenCalledWith('test');
 		expect(mockDb.collection(collectionName).insertOne).toHaveBeenCalledWith({
 			_id: '65c47f9640783fa3a7e6f195',
-			created_at: expect.any(Date),
-			updated_at: expect.any(Date),
+			createdAt: expect.any(Date),
+			updatedAt: expect.any(Date),
 		});
 	});
 	it('should return the expected response', async () => {

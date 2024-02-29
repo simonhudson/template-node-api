@@ -1,6 +1,5 @@
 import { COLLECTION_NAME } from './constants';
 import { createError } from '@/utils/createError';
-import { dateOfBirthIsValid } from '@/utils/validation/dateOfBirthIsValid';
 import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
 import { httpStatusCodes } from '@/constants/httpStatusCodes';
@@ -9,10 +8,9 @@ import type { Request, Response } from 'express';
 
 const getInvalidFields = (requestBody: Record<string, string>): string[] => {
 	const invalidFields: string[] = [];
-	['firstName', 'lastName'].forEach((field): void => {
+	['name'].forEach((field): void => {
 		if (!requestBody[field]) invalidFields.push(field);
 	});
-	if (!dateOfBirthIsValid(requestBody.dateOfBirth)) invalidFields.push('dateOfBirth');
 	return invalidFields;
 };
 
