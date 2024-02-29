@@ -13,7 +13,9 @@ export const handleResponse = (
 		| ApiErrorResponse
 		| unknown
 ): ApiSuccessResponse => {
-	const commitSha = process.env.COMMIT_SHA_SHORT ?? '';
+	const commitSha =
+		process.env.COMMIT_SHA_SHORT ??
+		require('child_process').execSync('git rev-parse --short HEAD').toString().trim();
 
 	const responsePayload: ApiSuccessResponse = {
 		status: res.statusCode,

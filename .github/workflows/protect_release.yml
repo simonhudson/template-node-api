@@ -2,8 +2,7 @@ name: 'Protect Release branch'
 
 on:
     pull_request:
-        branches:
-            - release
+        branches: 'release'
         types:
             - opened
 
