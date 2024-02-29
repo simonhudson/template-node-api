@@ -34,11 +34,6 @@ jobs:
             - name: Check outputs
               run: echo ${{ steps.vars.outputs.commit_sha_short }}
 
-            # Create env file
-            - run: git rm -r --ignore-unmatch .env
-            - run: echo "COMMIT_SHA_SHORT=$(git rev-parse --short HEAD)" > .env
-            - run: git add -f .env
-
             # Provide GH creds
             - run: git config user.name "${{ github.actor }}"
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
@@ -57,6 +52,11 @@ jobs:
 
             # Add /dist to release branch
             - run: git add dist
+
+            # Create env file
+            - run: git rm -r --ignore-unmatch .env
+            - run: echo "COMMIT_SHA_SHORT=${{ steps.vars.outputs.commit_sha_short }}" > .env
+            - run: git add -f .env
 
             # Delete obsolete files/dirs
             - run: git rm -r --ignore-unmatch .vscode postman swagger test .babelrc .env.example .eslintrc.json .prettierrc jest.config.ts
