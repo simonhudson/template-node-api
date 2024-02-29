@@ -13,11 +13,14 @@ export const handleResponse = (
 		| ApiErrorResponse
 		| unknown
 ): ApiSuccessResponse => {
+	const commitSha = process.env.COMMIT_SHA_SHORT ?? '';
+
 	const responsePayload: ApiSuccessResponse = {
 		status: res.statusCode,
 		metadata: {
 			endpoint: req.originalUrl,
 			method: req.method,
+			commitSha,
 		},
 		data: [],
 	};

@@ -14,6 +14,7 @@ export type ApiBaseResponse = {
 		endpoint: string;
 		method: string;
 		count?: number;
+		commitSha: string;
 	};
 };
 
