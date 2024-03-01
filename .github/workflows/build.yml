@@ -38,37 +38,37 @@ jobs:
             - run: git config user.name "${{ github.actor }}"
             - run: git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
-            # Get up-to-date info from remote
-            - run: git fetch --all
+            # # Get up-to-date info from remote
+            # - run: git fetch --all
 
-            # Checkout release branch
-            - run: git checkout release
+            # Checkout main branch
+            - run: git checkout main
 
-            # Merge main into release
-            - run: git merge main
+            # # Merge main into release
+            # - run: git merge main
 
-            # Install dependencies
-            - run: npm ci
+            # # Install dependencies
+            # - run: npm ci
 
-            # Build
-            - run: npm run build --if-present
+            # # Build
+            # - run: npm run build --if-present
 
-            # Add /dist to release branch
-            - run: git add dist
+            # # Add /dist to release branch
+            # - run: git add dist
 
             # Create env file
             - run: git rm -r --ignore-unmatch .env
             - run: echo "COMMIT_SHA_SHORT=${{ steps.vars.outputs.commit_sha_short }}" > .env
             - run: git add -f .env
 
-            # Delete obsolete files/dirs
-            - run: git rm -r --ignore-unmatch .vscode postman swagger test .babelrc .env.example .eslintrc.json .prettierrc jest.config.ts
+            # # Delete obsolete files/dirs
+            # - run: git rm -r --ignore-unmatch .vscode postman swagger test .babelrc .env.example .eslintrc.json .prettierrc jest.config.ts
 
             # Commit changes
             - run: git commit -m "Build release ${{ steps.vars.outputs.commit_sha_short }}"
 
-            # Push release branch
-            - run: git push --set-upstream origin release
+            # # Push release branch
+            # - run: git push --set-upstream origin release
 
             ## Create release
             - run: gh release create ${{ steps.vars.outputs.commit_sha_short }}
