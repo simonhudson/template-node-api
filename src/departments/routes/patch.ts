@@ -1,7 +1,7 @@
-import { COLLECTION_NAME } from './constants';
+import { COLLECTION_NAME } from '@/departments/constants';
 import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 
-export const del = async (req: Request, res: Response): Promise<void> => {
+export const patch = async (req: Request, res: Response): Promise<void> => {
 	res.json(await makeRequest({ req, res, collectionName: COLLECTION_NAME }));
 };

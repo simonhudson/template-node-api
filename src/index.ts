@@ -1,6 +1,6 @@
 import express from 'express';
-import departments from '@/routes/departments';
-import users from '@/routes/users';
+import departments from '@/departments/routes';
+import users from '@/users/routes';
 
 const app = express();
 app.use(express.json());

@@ -3,12 +3,17 @@ import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
 import { makeRequest } from '@/utils/makeRequest';
 import { post } from './post';
+import { UsersController } from '@/users/controllers';
+import { Validation } from '@/utils/validation';
 import type { Request, Response } from 'express';
 
 jest.mock('@/utils/createError');
 jest.mock('@/utils/getDuplicateEntries');
 jest.mock('@/utils/handleResponse');
 jest.mock('@/utils/makeRequest');
+jest.spyOn(UsersController, 'post');
+jest.spyOn(Validation, 'missingRequiredFields');
+jest.spyOn(Validation, 'dateOfBirthIsValid');
 
 describe('post', () => {
 	let mockReq = {} as Request;
@@ -44,17 +49,46 @@ describe('post', () => {
 		await post(mockReq, mockRes);
 
 		// Then
+		expect(Validation.missingRequiredFields).toHaveBeenCalledTimes(1);
+		expect(Validation.missingRequiredFields).toHaveBeenCalledWith(mockReq.body, [
+			'firstName',
+			'lastName',
+			'dateOfBirth',
+		]);
 		expect(mockRes.status).toHaveBeenCalledTimes(1);
 		expect(mockRes.status).toHaveBeenCalledWith(400);
-		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledTimes(1);
 		expect(createError).toHaveBeenCalledWith({
-			message: `Invalid field(s)`,
+			message: `Missing required field(s)`,
 			data: ['firstName', 'dateOfBirth'],
 		});
 		expect(handleResponse).toHaveBeenCalledTimes(1);
 		expect(handleResponse).toHaveBeenCalledWith(mockReq, mockRes, 'create-error-response');
 		expect(makeRequest).not.toHaveBeenCalled();
+		expect(UsersController.post).not.toHaveBeenCalled;
+	});
+
+	it('should return 400 if Date of Birth is invalid', async () => {
+		// Given
+		mockReq.body.dateOfBirth = 'foo';
+
+		// When
+		await post(mockReq, mockRes);
+
+		// Then
+		expect(Validation.dateOfBirthIsValid).toHaveBeenCalledTimes(1);
+		expect(Validation.dateOfBirthIsValid).toHaveBeenCalledWith('foo');
+		expect(mockRes.status).toHaveBeenCalledTimes(1);
+		expect(mockRes.status).toHaveBeenCalledWith(400);
+		expect(createError).toHaveBeenCalledTimes(1);
+		expect(createError).toHaveBeenCalledWith({
+			message: `Invalid field(s)`,
+			data: [{ field: 'dateOfBirth', attemptedValue: 'foo' }],
+		});
+		expect(handleResponse).toHaveBeenCalledTimes(1);
+		expect(handleResponse).toHaveBeenCalledWith(mockReq, mockRes, 'create-error-response');
+		expect(makeRequest).not.toHaveBeenCalled();
+		expect(UsersController.post).not.toHaveBeenCalled;
 	});
 
 	it('should return 409 if duplicate entries are found', async () => {
@@ -76,6 +110,7 @@ describe('post', () => {
 		expect(handleResponse).toHaveBeenCalledTimes(1);
 		expect(handleResponse).toHaveBeenCalledWith(mockReq, mockRes, 'create-error-response');
 		expect(makeRequest).not.toHaveBeenCalled();
+		expect(UsersController.post).not.toHaveBeenCalled;
 	});
 
 	it('should make expected request', async () => {
@@ -95,5 +130,6 @@ describe('post', () => {
 			res: mockRes,
 			collectionName: expect.any(String),
 		});
+		expect(UsersController.post).toHaveBeenCalledTimes(1);
 	});
 });

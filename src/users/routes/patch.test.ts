@@ -1,10 +1,12 @@
-import { del } from './delete';
+import { patch } from './patch';
 import { makeRequest } from '@/utils/makeRequest';
+import { UsersController } from '@/users/controllers';
 import type { Request, Response } from 'express';
 
 jest.mock('@/utils/makeRequest');
+jest.spyOn(UsersController, 'patch');
 
-describe('del', () => {
+describe('patch', () => {
 	let mockReq = {} as Request;
 	let mockRes = {} as Response;
 
@@ -23,15 +25,15 @@ describe('del', () => {
 
 	it('should make expected request', async () => {
 		// When
-		await del(mockReq, mockRes);
+		await patch(mockReq, mockRes);
 
 		// Then
-		expect(mockRes.json).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledTimes(1);
 		expect(makeRequest).toHaveBeenCalledWith({
 			req: mockReq,
 			res: mockRes,
 			collectionName: expect.any(String),
 		});
+		expect(UsersController.patch).toHaveBeenCalledTimes(1);
 	});
 });

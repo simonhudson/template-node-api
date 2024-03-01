@@ -1,4 +1,4 @@
-import { COLLECTION_NAME } from './constants';
+import { COLLECTION_NAME } from '@/departments/constants';
 import { createError } from '@/utils/createError';
 import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
