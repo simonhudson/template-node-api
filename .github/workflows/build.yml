@@ -47,6 +47,7 @@ jobs:
 
             # Checkout release branch
             - run: git checkout release
+            - run: git pull
 
             # Merge main into release
             - run: git merge main
