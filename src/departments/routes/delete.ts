@@ -1,4 +1,4 @@
-import { COLLECTION_NAME } from './constants';
+import { COLLECTION_NAME } from '@/departments/constants';
 import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
 

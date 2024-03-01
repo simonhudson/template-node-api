@@ -1,8 +1,10 @@
 import { get } from './get';
 import { makeRequest } from '@/utils/makeRequest';
+import { UsersController } from '@/users/controllers';
 import type { Request, Response } from 'express';
 
 jest.mock('@/utils/makeRequest');
+jest.spyOn(UsersController, 'get');
 
 describe('get', () => {
 	let mockReq = {} as Request;
@@ -35,6 +37,7 @@ describe('get', () => {
 			sortDirection: expect.any(String),
 			query: {},
 		});
+		expect(UsersController.get).toHaveBeenCalledTimes(1);
 	});
 	it('should make expected request with query', async () => {
 		// Given
@@ -53,5 +56,6 @@ describe('get', () => {
 			sortDirection: expect.any(String),
 			query: { firstName: expect.any(Object), lastName: expect.any(Object) },
 		});
+		expect(UsersController.get).toHaveBeenCalledTimes(1);
 	});
 });
