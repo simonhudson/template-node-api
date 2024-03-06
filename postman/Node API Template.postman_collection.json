@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "bf8c54f4-e804-4e01-9d93-97bf2718992a",
+		"name": "Node API Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30596518"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const assertCommonResponse = (res) => {\r",
+									"//     pm.expect(res.status).to.be.a('number');\r",
+									"//     pm.expect(res.metadata).to.deep.equal({ endpoint: '/users', method: 'POST' });\r",
+									"// }\r",
+									"\r",
+									"// pm.test(\"Should return an error if duplicate record exists\", () => {\r",
+									"//     const res = pm.response.json();\r",
+									"//     assertCommonResponse(res);\r",
+									"//     pm.expect(res.status).to.equal(409);\r",
+									"//     pm.expect(res.error).to.equal(`Duplicate entry found for John Doe with D.O.B 1981-04-29`);\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"John\",\r\n    \"last_name\": \"Doe\",\r\n    \"date_of_birth\": \"1981-04-29\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const assertMetadata = (res) => {\r",
+									"    pm.test('Response should contain expected metadata', () => {\r",
+									"        pm.expect(res.status).to.equal(200);\r",
+									"        pm.expect(res.metadata).to.contain({ endpoint: `/users`, method: 'GET' });\r",
+									"        pm.expect(res.metadata.count).to.be.a('number');\r",
+									"        pm.expect(res.metadata.count > -1).to.be.true;\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									"pm.test('Response should contain results array', () => {\r",
+									"    const res = pm.response.json();\r",
+									"    assertMetadata(res);\r",
+									"    pm.expect(res).haveOwnProperty('data');\r",
+									"    pm.expect(res.data).to.be.an('Array');\r",
+									"    pm.expect(res.data.length > 0).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test('Results should contain expected data', () => {\r",
+									"    const res = pm.response.json();\r",
+									"    const firstItem = res.data[0];\r",
+									"\r",
+									"    const properties = [\r",
+									"        { key: '_id', type: 'string' },\r",
+									"        { key: 'age', type: 'number'},\r",
+									"        { key: 'created_at', type: 'string' },\r",
+									"        { key: 'date_of_birth', type: 'string' },\r",
+									"        { key: 'first_name', type: 'string' },\r",
+									"        { key: 'last_name', type: 'string' },\r",
+									"        { key: 'slug', type: 'string' },\r",
+									"        { key: 'updated_at', type: 'string' }\r",
+									"    ]\r",
+									"    assertMetadata(res);\r",
+									"    properties.forEach(property => {\r",
+									"        pm.expect(firstItem).haveOwnProperty(property.key);\r",
+									"        const value = firstItem[property.key];\r",
+									"        if (value !== null) pm.expect(value).to.be.a(property.type);\r",
+									"    });\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/:slug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectInvalid = pm.iterationData.get('isInvalid') === true;\r",
+									"const slug = pm.iterationData.get('slug');\r",
+									"\r",
+									"pm.test('Response should contain expected metadata', () => {\r",
+									"    const res = pm.response.json();\r",
+									"    pm.expect(res.status).to.equal(200);\r",
+									"    pm.expect(res.metadata).to.contain({ endpoint: `/users/${slug}`, method: 'GET' });\r",
+									"    pm.expect(res.metadata.count).to.be.a('number');\r",
+									"    pm.expect(res.metadata.count).to.equal(expectInvalid ? 0 : 1);\r",
+									"});\r",
+									"\r",
+									"if (!expectInvalid) {\r",
+									"    pm.test('Results should contain expected data', () => {\r",
+									"        const res = pm.response.json();\r",
+									"        const firstItem = res.data[0];\r",
+									"\r",
+									"        pm.expect(res).haveOwnProperty('data');\r",
+									"        pm.expect(res.data).to.be.an('Array');\r",
+									"        pm.expect(res.data.length).to.equal(1);\r",
+									"\r",
+									"        const properties = [\r",
+									"            { key: '_id', type: 'string' },\r",
+									"            { key: 'age', type: 'number'},\r",
+									"            { key: 'created_at', type: 'string' },\r",
+									"            { key: 'date_of_birth', type: 'string' },\r",
+									"            { key: 'first_name', type: 'string' },\r",
+									"            { key: 'last_name', type: 'string' },\r",
+									"            { key: 'slug', type: 'string' },\r",
+									"            { key: 'updated_at', type: 'string' }\r",
+									"        ]\r",
+									"\r",
+									"        properties.forEach(property => {\r",
+									"            pm.expect(firstItem).haveOwnProperty(property.key);\r",
+									"            const value = firstItem[property.key];\r",
+									"            if (value !== null) pm.expect(value).to.be.a(property.type);\r",
+									"        });\r",
+									"\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/{{slug}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{slug}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"65c3a5fcf10a5688ca0057c8\",\r\n    \"date_of_birth\": \"1991-04-29\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"65c47baa5ba7d8a40ac8e801\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "slug",
+			"value": "{{slug}}"
+		}
+	]
+}

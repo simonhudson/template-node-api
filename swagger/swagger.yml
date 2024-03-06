@@ -1,0 +1,102 @@
+swagger: '2.0'
+info:
+    title: Node API
+    description: Node API
+    version: 1.0.0
+host: template-node-api.vercel.app
+basePath: /
+schemes:
+    - https
+definitions:
+    Status:
+        type: integer
+    Metadata:
+        type: object
+        properties:
+            count:
+                type: integer
+            endpoint:
+                type: string
+            method:
+                type: string
+    User:
+        properties:
+            _id:
+                type: string
+            age:
+                type: integer
+            createdAt:
+                type: string
+            dateOfBirth:
+                type: string
+            firstName:
+                type: string
+            lastName:
+                type: string
+            slug:
+                type: string
+            updatedAt:
+                type: string
+    UsersResponse:
+        type: object
+        properties:
+            status:
+                $ref: '#/definitions/Status'
+            metadata:
+                $ref: '#/definitions/Metadata'
+            data:
+                type: array
+                items:
+                    $ref: '#/definitions/User'
+paths:
+    /users:
+        get:
+            tags:
+                - Users
+            summary: Returns all Users
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: List of Users.
+                    schema:
+                        $ref: '#/definitions/UsersResponse'
+        # post:
+        #     tags:
+        #         - Players
+        #     summary: Create a new player
+        #     responses:
+        #         201:
+        #             description: The created player
+        # patch:
+        #     tags:
+        #         - Players
+        #     summary: Update a player
+        #     responses:
+        #         200:
+        #             description: The updated player
+        # delete:
+        #     tags:
+        #         - Players
+        #     summary: Delete a player
+        #     responses:
+        #         204:
+        #             description: The player was deleted
+    /users/{slug}:
+        get:
+            tags:
+                - Users
+            summary: Returns single User by slug (e.g. firstName-lastName)
+            parameters:
+                - name: slug
+                  in: path
+                  description: Slug of the user's name (e.g. firstName-lastName)
+                  required: true
+                  type: string
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: The user by slug
+                    schema:
+                    $ref: '#/definitions/UsersResponse'
