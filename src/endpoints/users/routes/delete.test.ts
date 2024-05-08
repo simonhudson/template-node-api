@@ -1,6 +1,6 @@
 import { del } from './delete';
 import { makeRequest } from '@/utils/makeRequest';
-import { UsersController } from '@/users/controllers';
+import { UsersController } from '@/endpoints/users/controllers';
 import type { Request, Response } from 'express';
 
 jest.mock('@/utils/makeRequest');

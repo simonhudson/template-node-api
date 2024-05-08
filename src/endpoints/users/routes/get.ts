@@ -1,7 +1,7 @@
-import { COLLECTION_NAME } from '@/users/constants';
+import { COLLECTION_NAME } from '@/endpoints/users/constants';
 import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
-import { UsersController } from '@/users/controllers';
+import { UsersController } from '@/endpoints/users/controllers';
 
 export const get = async (req: Request, res: Response): Promise<void> => {
 	let query = {};
