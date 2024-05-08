@@ -1,7 +1,7 @@
-import { COLLECTION_NAME } from '@/departments/constants';
+import { COLLECTION_NAME } from '@/endpoints/departments/constants';
 import { makeRequest } from '@/utils/makeRequest';
 import type { Request, Response } from 'express';
-import type { Department } from '@/departments/types';
+import type { Department } from '@/endpoints/departments/types';
 
 const transform = (data: any): Department[] => {
 	return data;

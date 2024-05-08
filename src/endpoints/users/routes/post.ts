@@ -1,11 +1,11 @@
-import { COLLECTION_NAME } from '@/users/constants';
+import { COLLECTION_NAME } from '@/endpoints/users/constants';
 import { createError } from '@/utils/createError';
 import { Validation } from '@/utils/validation';
 import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
 import { httpStatusCodes } from '@/constants/httpStatusCodes';
 import { makeRequest } from '@/utils/makeRequest';
-import { UsersController } from '@/users/controllers';
+import { UsersController } from '@/endpoints/users/controllers';
 import type { Request, Response } from 'express';
 
 export const post = async (req: Request, res: Response): Promise<any> => {

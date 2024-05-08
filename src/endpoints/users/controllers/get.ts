@@ -2,7 +2,7 @@ import { slugify } from '@/utils/slugify';
 import dayjs from 'dayjs';
 import type { ApiSuccessResponse, ApiErrorResponse } from '@/types/api';
 import type { Response } from 'express';
-import type { User } from '@/users/types';
+import type { User } from '@/endpoints/users/types';
 
 const transform = (data: any): User[] => {
 	data?.data.forEach((item: any) => {

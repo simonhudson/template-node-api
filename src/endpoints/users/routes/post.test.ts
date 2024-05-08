@@ -3,7 +3,7 @@ import { getDuplicateEntries } from '@/utils/getDuplicateEntries';
 import { handleResponse } from '@/utils/handleResponse';
 import { makeRequest } from '@/utils/makeRequest';
 import { post } from './post';
-import { UsersController } from '@/users/controllers';
+import { UsersController } from '@/endpoints/users/controllers';
 import { Validation } from '@/utils/validation';
 import type { Request, Response } from 'express';
 
